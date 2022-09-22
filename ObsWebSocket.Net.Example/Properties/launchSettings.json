@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ObsWebSocket.Net.Example": {
+      "commandName": "Project",
+      "commandLineArgs": "192.168.1.115 4455 PurOyGd8NxejGUwD true"
+    }
+  }
+}
