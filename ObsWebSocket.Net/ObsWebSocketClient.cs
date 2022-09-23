@@ -225,4 +225,7 @@ public sealed partial class ObsWebSocketClient
 
     private partial void HandleEvents(in Messages.Json.Event evt);
     private partial void HandleEvents(in Messages.MsgPack.Event evt);
+
+    private static partial object? DeserializeRequestResponse(in Messages.Json.RequestResponse response);
+    private static partial object? DeserializeRequestResponse(in Messages.MsgPack.RequestResponse response);
 }

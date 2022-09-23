@@ -207,27 +207,3 @@ public enum RequestType : byte
 
     #endregion
 }
-
-public static class RequestTypesExtension
-{
-    private static readonly Dictionary<RequestType, Type> CachedRequestTypes = new();
-    private static readonly HashSet<RequestType> CachedRequestNoResponseTypes = new();
-
-    public static Type? GetResponseType(this RequestType requestType)
-    {
-        if (CachedRequestNoResponseTypes.Contains(requestType)) return null;
-
-        if (CachedRequestTypes.TryGetValue(requestType, out var type)) return type;
-
-        type = Type.GetType($"ObsWebSocket.Net.Requests.{requestType}Response");
-
-        if (type == null)
-        {
-            CachedRequestNoResponseTypes.Add(requestType);
-            return null;
-        }
-
-        CachedRequestTypes.Add(requestType, type);
-        return type;
-    }
-}

@@ -64,15 +64,4 @@ public sealed partial class ObsWebSocketClient
 
         OnClosed?.Invoke();
     }
-
-    private static object? DeserializeRequestResponse(in RequestResponse response)
-    {
-        if (response.ResponseData == null) return null;
-
-        var type = response.RequestType.GetResponseType();
-
-        return type == null
-            ? null
-            : MessagePackSerializer.Deserialize(type, MessagePackSerializer.Serialize(response.ResponseData));
-    }
 }
