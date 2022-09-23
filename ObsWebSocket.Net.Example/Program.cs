@@ -1,7 +1,6 @@
 ﻿using ObsWebSocket.Net;
 using ObsWebSocket.Net.Enums;
 using ObsWebSocket.Net.Messages;
-using ObsWebSocket.Net.Requests.Extensions;
 
 using EventWaitHandle ewh = new(false, EventResetMode.ManualReset);
 

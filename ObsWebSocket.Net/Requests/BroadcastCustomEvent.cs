@@ -8,7 +8,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     subscribed.
 /// </summary>
 [MessagePackObject]
-public struct BroadcastCustomEventRequest
+public struct BroadcastCustomEvent
 {
     /// <summary>
     ///     Data payload to emit to all receivers
