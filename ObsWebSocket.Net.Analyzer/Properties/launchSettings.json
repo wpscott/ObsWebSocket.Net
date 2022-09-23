@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "ObsWebSocket.Net.Analyzer": {
+      "commandName": "Project"
+    },
+    "SourceGenerator": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\ObsWebSocket.Net\\ObsWebSocket.Net.csproj"
+    }
+  }
+}
