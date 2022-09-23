@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsWebSocket.Net", "ObsWebSocket.Net\ObsWebSocket.Net.csproj", "{CBB70553-B639-4B7A-B77B-64D1B401FF55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsWebSocket.Net", "ObsWebSocket.Net\ObsWebSocket.Net.csproj", "{CBB70553-B639-4B7A-B77B-64D1B401FF55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsWebSocket.Net.Example", "ObsWebSocket.Net.Example\ObsWebSocket.Net.Example.csproj", "{CCCC6DEF-1C9A-4312-AA85-54377DA1D475}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsWebSocket.Net.Example", "ObsWebSocket.Net.Example\ObsWebSocket.Net.Example.csproj", "{CCCC6DEF-1C9A-4312-AA85-54377DA1D475}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsWebSocket.Net.Analyzer", "ObsWebSocket.Net.Analyzer\ObsWebSocket.Net.Analyzer.csproj", "{7745A185-A3AA-42BF-8AF4-73BD3DE56EE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CCCC6DEF-1C9A-4312-AA85-54377DA1D475}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCCC6DEF-1C9A-4312-AA85-54377DA1D475}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCCC6DEF-1C9A-4312-AA85-54377DA1D475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7745A185-A3AA-42BF-8AF4-73BD3DE56EE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7745A185-A3AA-42BF-8AF4-73BD3DE56EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7745A185-A3AA-42BF-8AF4-73BD3DE56EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7745A185-A3AA-42BF-8AF4-73BD3DE56EE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

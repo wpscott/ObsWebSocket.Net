@@ -30,4 +30,10 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\ObsWebSocket.Net.Analyzer\ObsWebSocket.Net.Analyzer.csproj"
+						  OutputItemType="Analyzer"
+						  ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
 </Project>

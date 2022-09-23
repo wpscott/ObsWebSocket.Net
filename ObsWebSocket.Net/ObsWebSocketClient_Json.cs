@@ -41,7 +41,7 @@ public sealed partial class ObsWebSocketClient
                     break;
                 case OpCode.Event:
                     var evt = message.Data.Deserialize<Event>();
-                    HandleEvent(evt);
+                    HandleEvents(evt);
                     break;
                 case OpCode.RequestResponse:
                     var response = message.Data.Deserialize<RequestResponse>();
@@ -70,13 +70,5 @@ public sealed partial class ObsWebSocketClient
         var type = response.RequestType.GetResponseType();
 
         return type == null ? null : response.ResponseData.Deserialize(type);
-    }
-
-    private void HandleEvent(in Event evt)
-    {
-        var type = evt.EventType.GetEventType();
-        if (type == null) return;
-
-        InvokeEventHandler(evt.EventType, evt.EventData.Deserialize(type));
     }
 }

@@ -107,20 +107,3 @@ public enum EventType : byte
 
     #endregion
 }
-
-public static class EventTypesExtension
-{
-    private static readonly Dictionary<EventType, Type> CachedEventTypes = new();
-
-    public static Type? GetEventType(this EventType eventType)
-    {
-        if (CachedEventTypes.TryGetValue(eventType, out var type)) return type;
-
-        type = Type.GetType($"ObsWebSocket.Net.Events.{eventType}");
-
-        if (type == null) return null;
-
-        CachedEventTypes.Add(eventType, type);
-        return type;
-    }
-}

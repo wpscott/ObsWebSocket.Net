@@ -222,4 +222,7 @@ public sealed partial class ObsWebSocketClient
                 ?.GetValue(this) is not MulticastDelegate handler) return;
         handler.DynamicInvoke(args);
     }
+
+    private partial void HandleEvents(in Messages.Json.Event evt);
+    private partial void HandleEvents(in Messages.MsgPack.Event evt);
 }
