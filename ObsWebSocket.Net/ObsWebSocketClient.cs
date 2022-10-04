@@ -35,13 +35,7 @@ public sealed partial class ObsWebSocketClient
 
     public ObsWebSocketClient(in string address, in int port, in string? password = null, in bool useMsgPack = false)
     {
-        _address = new Uri($"ws://{address}:{port}");
-        _password = password;
-
-        _useMsgPack = useMsgPack;
-
-        _client = new ClientWebSocket();
-        _client.Options.AddSubProtocol(useMsgPack ? "obswebsocket.msgpack" : "obswebsocket.json");
+        Initialize(address, port, password, useMsgPack);
     }
 
     private string RequestId => _requestId++.ToString();
@@ -73,6 +67,8 @@ public sealed partial class ObsWebSocketClient
     {
         if (_client == null) return;
         await _client.CloseAsync(WebSocketCloseStatus.Empty, null, default);
+        _client = null;
+        GC.Collect();
     }
 
     public void Reidentify(in EventSubscriptions eventSubscriptions = EventSubscriptions.All)

@@ -13,8 +13,15 @@ public sealed partial class ObsWebSocketClient
     {
         if (_client == null || _address == null) return;
 
-        if (_client.State == WebSocketState.Open)
+        if (_client.State is WebSocketState.Open or WebSocketState.CloseReceived)
+        {
             await _client.CloseAsync(WebSocketCloseStatus.Empty, null, default);
+            _client = null;
+            GC.Collect();
+
+            _client = new ClientWebSocket();
+            _client.Options.AddSubProtocol(_useMsgPack ? "obswebsocket.msgpack" : "obswebsocket.json");
+        }
 
         await _client.ConnectAsync(_address, default);
 
