@@ -12,7 +12,7 @@ var client = args.Length switch
     _ => throw new ArgumentException("Invalid argument numbers")
 };
 
-client.OnClosed += () => { ewh.Set(); };
+client.OnClosed += () => { client.Connect(); };
 
 client.OnIdentified += async () =>
 {
