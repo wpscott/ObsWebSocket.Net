@@ -1,9 +1,9 @@
 ﻿using System.Net.WebSockets;
-using System.Reflection;
 using System.Text.Json;
 using MessagePack;
 using ObsWebSocket.Net.Enums;
 using ObsWebSocket.Net.Messages;
+using ObsWebSocket.Net.Messages.Json;
 
 namespace ObsWebSocket.Net;
 
@@ -17,17 +17,21 @@ public sealed partial class ObsWebSocketClient
 {
     private const int RpcVersion = 1;
 
-    private readonly Uri _address;
-
-    private readonly ClientWebSocket _client;
-
     private readonly object _lock = new();
-    private readonly string? _password;
     private readonly Dictionary<string, InvocationBatchRequest> _pendingBatchCalls = new(StringComparer.Ordinal);
     private readonly Dictionary<string, InvocationRequest> _pendingCalls = new(StringComparer.Ordinal);
-    private readonly bool _useMsgPack;
+
+    private Uri? _address;
+
+    private ClientWebSocket? _client;
+    private string? _password;
 
     private ulong _requestId = 1;
+    private bool _useMsgPack;
+
+    public ObsWebSocketClient()
+    {
+    }
 
     public ObsWebSocketClient(in string address, in int port, in string? password = null, in bool useMsgPack = false)
     {
@@ -42,6 +46,16 @@ public sealed partial class ObsWebSocketClient
 
     private string RequestId => _requestId++.ToString();
 
+    public void Initialize(in string address, in int port, in string? password = null, in bool useMsgPack = false)
+    {
+        _address = new Uri($"ws://{address}:{port}");
+        _password = password;
+
+        _useMsgPack = useMsgPack;
+
+        _client = new ClientWebSocket();
+        _client.Options.AddSubProtocol(useMsgPack ? "obswebsocket.msgpack" : "obswebsocket.json");
+    }
 
     public event ObsWebSocketConnectedHandler? OnConnected;
     public event ObsWebSocketIdentifiedHandler? OnIdentified;
@@ -57,6 +71,7 @@ public sealed partial class ObsWebSocketClient
 
     public async void Close()
     {
+        if (_client == null) return;
         await _client.CloseAsync(WebSocketCloseStatus.Empty, null, default);
     }
 
@@ -188,7 +203,7 @@ public sealed partial class ObsWebSocketClient
 
     private async void Send(object message)
     {
-        if (_client.State != WebSocketState.Open) return;
+        if (_client?.State != WebSocketState.Open) return;
 
         if (_useMsgPack)
             await _client.SendAsync(new ArraySegment<byte>(MessagePackSerializer.Serialize(message)),
@@ -214,18 +229,9 @@ public sealed partial class ObsWebSocketClient
         Send(response);
     }
 
-    private void InvokeEventHandler(in EventType eventType, params object?[]? args)
-    {
-        if (args == null) return;
-
-        if (GetType()?.GetField($"On{eventType}", BindingFlags.Instance | BindingFlags.NonPublic)
-                ?.GetValue(this) is not MulticastDelegate handler) return;
-        handler.DynamicInvoke(args);
-    }
-
-    private partial void HandleEvents(in Messages.Json.Event evt);
+    private partial void HandleEvents(in Event evt);
     private partial void HandleEvents(in Messages.MsgPack.Event evt);
 
-    private static partial object? DeserializeRequestResponse(in Messages.Json.RequestResponse response);
+    private static partial object? DeserializeRequestResponse(in RequestResponse response);
     private static partial object? DeserializeRequestResponse(in Messages.MsgPack.RequestResponse response);
 }

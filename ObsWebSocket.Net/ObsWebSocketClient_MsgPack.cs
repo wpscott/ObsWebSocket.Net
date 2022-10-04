@@ -11,6 +11,8 @@ public sealed partial class ObsWebSocketClient
 {
     private async void Connect_MsgPack(EventSubscriptions eventSubscriptions)
     {
+        if (_client == null || _address == null) return;
+
         if (_client.State == WebSocketState.Open)
             await _client.CloseAsync(WebSocketCloseStatus.Empty, null, default);
 
