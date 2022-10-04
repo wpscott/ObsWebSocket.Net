@@ -6,13 +6,14 @@ using EventWaitHandle ewh = new(false, EventResetMode.ManualReset);
 
 var client = args.Length switch
 {
+    5 => new ObsWebSocketClient(args[0], int.Parse(args[1]), args[2], bool.Parse(args[3]), bool.Parse(args[4])),
     4 => new ObsWebSocketClient(args[0], int.Parse(args[1]), args[2], bool.Parse(args[3])),
     3 => new ObsWebSocketClient(args[0], int.Parse(args[1]), args[2]),
     2 => new ObsWebSocketClient(args[0], int.Parse(args[1])),
     _ => throw new ArgumentException("Invalid argument numbers")
 };
 
-client.OnClosed += () => { client.Connect(); };
+client.OnClosed += () => { ewh.Set(); };
 
 client.OnIdentified += async () =>
 {
