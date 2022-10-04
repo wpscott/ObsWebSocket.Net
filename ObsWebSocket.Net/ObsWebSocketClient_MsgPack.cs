@@ -11,66 +11,75 @@ public sealed partial class ObsWebSocketClient
 {
     private async void Connect_MsgPack(EventSubscriptions eventSubscriptions)
     {
-        if (_client == null || _address == null) return;
-
-        if (_client.State is WebSocketState.Open or WebSocketState.CloseReceived)
+        if (_client is { State: WebSocketState.Open or WebSocketState.CloseReceived })
         {
             await _client.CloseAsync(WebSocketCloseStatus.Empty, null, default);
+            _client.Abort();
+
             _client = null;
             GC.Collect();
-
-            _client = new ClientWebSocket();
-            _client.Options.AddSubProtocol(_useMsgPack ? "obswebsocket.msgpack" : "obswebsocket.json");
         }
 
-        await _client.ConnectAsync(_address, default);
-
-        using var owner = MemoryPool<byte>.Shared.Rent();
-
-        while (_client.State == WebSocketState.Open)
+        try
         {
-            var buffer = owner.Memory;
+            _client = new ClientWebSocket();
+            _client.Options.AddSubProtocol("obswebsocket.msgpack");
 
-            var result = await _client.ReceiveAsync(buffer, default);
+            await _client.ConnectAsync(_options.Host, default);
 
-            if (result.MessageType == WebSocketMessageType.Close) break;
+            using var owner = MemoryPool<byte>.Shared.Rent();
 
-            var message = MessagePackSerializer.Deserialize<Message>(buffer);
-
-            switch (message.OpCode)
+            while (_client.State == WebSocketState.Open)
             {
-                case OpCode.Hello:
-                    OnConnected?.Invoke();
+                var buffer = owner.Memory;
 
-                    var helloMessage = MessagePackSerializer.Deserialize<Message<Hello>>(buffer);
-                    var hello = helloMessage.Data;
+                var result = await _client.ReceiveAsync(buffer, default);
 
-                    Identify(hello.Authentication, eventSubscriptions);
-                    break;
-                case OpCode.Identified:
-                    OnIdentified?.Invoke();
-                    break;
-                case OpCode.Event:
-                    var eventMessage = MessagePackSerializer.Deserialize<Message<Event>>(buffer);
-                    HandleEvents(eventMessage.Data);
-                    break;
-                case OpCode.RequestResponse:
-                    var response = MessagePackSerializer.Deserialize<Message<RequestResponse>>(buffer);
-                    var data = DeserializeRequestResponse(response.Data);
-                    if (TryRemoveInvocation(response.Data.RequestId, out InvocationRequest irq))
-                        DispatchInvocationCompletion(data, irq);
+                if (result.MessageType == WebSocketMessageType.Close) break;
 
-                    break;
-                case OpCode.RequestBatchResponse:
-                    var batchResponse = MessagePackSerializer.Deserialize<Message<RequestBatchResponse>>(buffer);
-                    var results = batchResponse.Data.Results.Select(re => DeserializeRequestResponse(re)).ToList();
-                    if (TryRemoveInvocation(batchResponse.Data.RequestId, out InvocationBatchRequest ibrq))
-                        DispatchInvocationCompletion(results, ibrq);
+                var message = MessagePackSerializer.Deserialize<Message>(buffer);
 
-                    break;
+                switch (message.OpCode)
+                {
+                    case OpCode.Hello:
+                        OnConnected?.Invoke();
+
+                        var helloMessage = MessagePackSerializer.Deserialize<Message<Hello>>(buffer);
+                        var hello = helloMessage.Data;
+
+                        Identify(hello.Authentication, eventSubscriptions);
+                        break;
+                    case OpCode.Identified:
+                        OnIdentified?.Invoke();
+                        break;
+                    case OpCode.Event:
+                        var eventMessage = MessagePackSerializer.Deserialize<Message<Event>>(buffer);
+                        HandleEvents(eventMessage.Data);
+                        break;
+                    case OpCode.RequestResponse:
+                        var response = MessagePackSerializer.Deserialize<Message<RequestResponse>>(buffer);
+                        var data = DeserializeRequestResponse(response.Data);
+                        if (TryRemoveInvocation(response.Data.RequestId, out InvocationRequest irq))
+                            DispatchInvocationCompletion(data, irq);
+
+                        break;
+                    case OpCode.RequestBatchResponse:
+                        var batchResponse = MessagePackSerializer.Deserialize<Message<RequestBatchResponse>>(buffer);
+                        var results = batchResponse.Data.Results.Select(re => DeserializeRequestResponse(re)).ToList();
+                        if (TryRemoveInvocation(batchResponse.Data.RequestId, out InvocationBatchRequest ibrq))
+                            DispatchInvocationCompletion(results, ibrq);
+
+                        break;
+                }
             }
-        }
 
-        OnClosed?.Invoke();
+            OnClosed?.Invoke();
+            if (_options.AutoReconnect) Connect_Json(eventSubscriptions);
+        }
+        catch (WebSocketException)
+        {
+            OnClosed?.Invoke();
+            if (_options.AutoReconnect) Connect_Json(eventSubscriptions);
+        }
     }
 }

@@ -3,7 +3,6 @@ using System.Text.Json;
 using MessagePack;
 using ObsWebSocket.Net.Enums;
 using ObsWebSocket.Net.Messages;
-using ObsWebSocket.Net.Messages.Json;
 
 namespace ObsWebSocket.Net;
 
@@ -21,34 +20,39 @@ public sealed partial class ObsWebSocketClient
     private readonly Dictionary<string, InvocationBatchRequest> _pendingBatchCalls = new(StringComparer.Ordinal);
     private readonly Dictionary<string, InvocationRequest> _pendingCalls = new(StringComparer.Ordinal);
 
-    private Uri? _address;
-
     private ClientWebSocket? _client;
-    private string? _password;
+
+    private ObsWebSocketClientOptions _options;
 
     private ulong _requestId = 1;
-    private bool _useMsgPack;
 
     public ObsWebSocketClient()
     {
     }
 
-    public ObsWebSocketClient(in string address, in int port, in string? password = null, in bool useMsgPack = false)
+    public ObsWebSocketClient(in string address, in int port, in string? password = null, in bool useMsgPack = false,
+        in bool autoReconnect = true)
     {
-        Initialize(address, port, password, useMsgPack);
+        _options = new ObsWebSocketClientOptions
+        {
+            Address = address,
+            Port = port,
+            Password = password,
+            UseMsgPack = useMsgPack,
+            AutoReconnect = autoReconnect
+        };
+    }
+
+    public ObsWebSocketClient(in ObsWebSocketClientOptions options)
+    {
+        _options = options;
     }
 
     private string RequestId => _requestId++.ToString();
 
-    public void Initialize(in string address, in int port, in string? password = null, in bool useMsgPack = false)
+    public void Initialize(in ObsWebSocketClientOptions options)
     {
-        _address = new Uri($"ws://{address}:{port}");
-        _password = password;
-
-        _useMsgPack = useMsgPack;
-
-        _client = new ClientWebSocket();
-        _client.Options.AddSubProtocol(useMsgPack ? "obswebsocket.msgpack" : "obswebsocket.json");
+        _options = options;
     }
 
     public event ObsWebSocketConnectedHandler? OnConnected;
@@ -57,7 +61,7 @@ public sealed partial class ObsWebSocketClient
 
     public void Connect(in EventSubscriptions eventSubscriptions = EventSubscriptions.All)
     {
-        if (_useMsgPack)
+        if (_options.UseMsgPack)
             Connect_MsgPack(eventSubscriptions);
         else
             Connect_Json(eventSubscriptions);
@@ -201,7 +205,7 @@ public sealed partial class ObsWebSocketClient
     {
         if (_client?.State != WebSocketState.Open) return;
 
-        if (_useMsgPack)
+        if (_options.UseMsgPack)
             await _client.SendAsync(new ArraySegment<byte>(MessagePackSerializer.Serialize(message)),
                 WebSocketMessageType.Binary, WebSocketMessageFlags.EndOfMessage, default);
         else
@@ -217,7 +221,7 @@ public sealed partial class ObsWebSocketClient
             Data = new Identify
             {
                 RpcVersion = RpcVersion,
-                Authentication = authentication?.Authenticate(_password),
+                Authentication = authentication?.Authenticate(_options.Password),
                 EventSubscriptions = eventSubscriptions
             }
         };
@@ -225,9 +229,9 @@ public sealed partial class ObsWebSocketClient
         Send(response);
     }
 
-    private partial void HandleEvents(in Event evt);
+    private partial void HandleEvents(in Messages.Json.Event evt);
     private partial void HandleEvents(in Messages.MsgPack.Event evt);
 
-    private static partial object? DeserializeRequestResponse(in RequestResponse response);
+    private static partial object? DeserializeRequestResponse(in Messages.Json.RequestResponse response);
     private static partial object? DeserializeRequestResponse(in Messages.MsgPack.RequestResponse response);
 }
