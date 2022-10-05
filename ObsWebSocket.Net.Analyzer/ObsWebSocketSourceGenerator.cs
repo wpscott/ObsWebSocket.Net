@@ -225,7 +225,7 @@ public static class ObSWebSocketExtensions
             sb.AppendLine("    {");
             if (hasResponse)
             {
-                sb.Append("return client.Invoke<");
+                sb.Append("        return client.Invoke<");
                 sb.Append(type);
                 sb.Append("Response>(RequestType.");
             }
