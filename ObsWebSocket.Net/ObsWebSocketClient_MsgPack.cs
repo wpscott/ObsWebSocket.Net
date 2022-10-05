@@ -74,12 +74,12 @@ public sealed partial class ObsWebSocketClient
             }
 
             OnClosed?.Invoke();
-            if (_options.AutoReconnect) Connect_Json(eventSubscriptions);
+            if (_options.AutoReconnect) Connect_MsgPack(eventSubscriptions);
         }
         catch (WebSocketException)
         {
             OnClosed?.Invoke();
-            if (_options.AutoReconnect) Connect_Json(eventSubscriptions);
+            if (_options.AutoReconnect) Connect_MsgPack(eventSubscriptions);
         }
     }
 }

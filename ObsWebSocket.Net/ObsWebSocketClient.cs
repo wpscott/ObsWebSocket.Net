@@ -71,6 +71,8 @@ public sealed partial class ObsWebSocketClient
     {
         if (_client == null) return;
         await _client.CloseAsync(WebSocketCloseStatus.Empty, null, default);
+        _client.Abort();
+
         _client = null;
         GC.Collect();
     }
