@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sets the audio mute state of an input.
 /// </summary>
 [MessagePackObject]
-public struct SetInputMute
+public class SetInputMute
 {
     /// <summary>
     ///     Name of the input to set the mute state of
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Whether to mute the input or not

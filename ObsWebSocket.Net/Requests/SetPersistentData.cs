@@ -8,7 +8,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sets the value of a "slot" from the selected persistent data realm.
 /// </summary>
 [MessagePackObject]
-public struct SetPersistentData
+public class SetPersistentData
 {
     /// <summary>
     ///     The data realm to select.
@@ -25,7 +25,7 @@ public struct SetPersistentData
     /// </summary>
     [JsonPropertyName("slotName")]
     [Key("slotName")]
-    public string SlotName { get; init; }
+    public string SlotName { get; init; } = null!;
 
     /// <summary>
     ///     The value to apply to the slot

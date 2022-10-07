@@ -12,21 +12,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct CallVendorRequest
+public class CallVendorRequest
 {
     /// <summary>
     ///     Name of the vendor to use
     /// </summary>
     [JsonPropertyName("vendorName")]
     [Key("vendorName")]
-    public string VendorName { get; init; }
+    public string VendorName { get; init; } = null!;
 
     /// <summary>
     ///     The request type to call
     /// </summary>
     [JsonPropertyName("requestType")]
     [Key("requestType")]
-    public string RequestType { get; init; }
+    public string RequestType { get; init; } = null!;
 
     /// <summary>
     ///     Object containing appropriate request data
@@ -37,21 +37,21 @@ public struct CallVendorRequest
 }
 
 [MessagePackObject]
-public struct CallVendorRequestResponse
+public class CallVendorRequestResponse
 {
     /// <summary>
     ///     Echoed of <see cref="CallVendorRequest.VendorName" />
     /// </summary>
     [JsonPropertyName("vendorName")]
     [Key("vendorName")]
-    public string VendorName { get; init; }
+    public string VendorName { get; init; } = null!;
 
     /// <summary>
     ///     Echoed of <see cref="CallVendorRequest.RequestType" />
     /// </summary>
     [JsonPropertyName("requestType")]
     [Key("requestType")]
-    public string RequestType { get; init; }
+    public string RequestType { get; init; } = null!;
 
     /// <summary>
     ///     Object containing appropriate response data. <c>{}</c> if request does not provide any response data

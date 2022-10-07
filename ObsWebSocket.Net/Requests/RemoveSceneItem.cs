@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     Removes a scene item from a scene.
 /// </summary>
 [MessagePackObject]
-public struct RemoveSceneItem
+public class RemoveSceneItem
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     <para>Numeric ID of the scene item</para>

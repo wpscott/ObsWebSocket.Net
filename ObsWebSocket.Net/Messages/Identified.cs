@@ -4,7 +4,7 @@ using MessagePack;
 namespace ObsWebSocket.Net.Messages;
 
 [MessagePackObject]
-internal struct Identified
+internal class Identified
 {
     [JsonPropertyName("negotiatedRpcVersion")]
     [Key("negotiatedRpcVersion")]

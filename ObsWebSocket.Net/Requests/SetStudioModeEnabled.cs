@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Enables or disables studio mode
 /// </summary>
 [MessagePackObject]
-public struct SetStudioModeEnabled
+public class SetStudioModeEnabled
 {
     /// <summary>
     ///     <see langword="true" /> == Enabled, <see langword="false" /> == Disabled

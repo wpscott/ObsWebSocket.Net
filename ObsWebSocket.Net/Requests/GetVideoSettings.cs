@@ -11,7 +11,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetVideoSettingsResponse
+public class GetVideoSettingsResponse
 {
     /// <summary>
     ///     Numerator of the fractional FPS value

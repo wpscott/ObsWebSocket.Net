@@ -13,33 +13,33 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetInputSettings
+public class GetInputSettings
 {
     /// <summary>
     ///     Name of the input to get the settings of
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the settings of an input.
 /// </summary>
 [MessagePackObject]
-public struct GetInputSettingsResponse
+public class GetInputSettingsResponse
 {
     /// <summary>
     ///     Object of settings for the input
     /// </summary>
     [JsonPropertyName("inputSettings")]
     [Key("inputSettings")]
-    public IReadOnlyDictionary<string, object> InputSettings { get; init; }
+    public IReadOnlyDictionary<string, object> InputSettings { get; init; } = null!;
 
     /// <summary>
     ///     The kind of the input
     /// </summary>
     [JsonPropertyName("inputKind")]
     [Key("inputKind")]
-    public string InputKind { get; init; }
+    public string InputKind { get; init; } = null!;
 }

@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Stops the record output.
 /// </summary>
 [MessagePackObject]
-public struct StopRecord
+public class StopRecord
 {
 }

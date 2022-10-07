@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Starts the replay buffer output.
 /// </summary>
 [MessagePackObject]
-public struct StartReplayBuffer
+public class StartReplayBuffer
 {
 }

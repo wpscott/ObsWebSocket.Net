@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     The profile list has changed.
 /// </summary>
 [MessagePackObject]
-public struct ProfileListChanged
+public class ProfileListChanged
 {
     /// <summary>
     ///     Updated list of profiles
     /// </summary>
     [JsonPropertyName("profiles")]
     [Key("profiles")]
-    public IReadOnlyList<string> Profiles { get; init; }
+    public IReadOnlyList<string> Profiles { get; init; } = null!;
 }

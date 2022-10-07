@@ -8,26 +8,26 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets an array of all scene transitions in OBS.
 /// </summary>
 [MessagePackObject]
-public struct GetSceneTransitionListResponse
+public class GetSceneTransitionListResponse
 {
     /// <summary>
     ///     Name of the current scene transition. Can be <see langword="null" />
     /// </summary>
     [JsonPropertyName("currentSceneTransitionName")]
     [Key("currentSceneTransitionName")]
-    public string CurrentSceneTransitionName { get; init; }
+    public string CurrentSceneTransitionName { get; init; } = null!;
 
     /// <summary>
     ///     Kind of the current scene transition. Can be <see langword="null" />
     /// </summary>
     [JsonPropertyName("currentSceneTransitionKind")]
     [Key("currentSceneTransitionKind")]
-    public string CurrentSceneTransitionKind { get; init; }
+    public string CurrentSceneTransitionKind { get; init; } = null!;
 
     /// <summary>
     ///     Array of transitions
     /// </summary>
     [JsonPropertyName("transitions")]
     [Key("transitions")]
-    public IReadOnlyList<Transition> Transitions { get; init; }
+    public IReadOnlyList<Transition> Transitions { get; init; } = null!;
 }

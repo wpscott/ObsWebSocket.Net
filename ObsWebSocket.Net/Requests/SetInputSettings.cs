@@ -7,24 +7,25 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sets the settings of an input.
 /// </summary>
 [MessagePackObject]
-public struct SetInputSettings
+public class SetInputSettings
 {
     /// <summary>
     ///     Name of the input to set the settings of
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Object of settings to apply
     /// </summary>
     [JsonPropertyName("inputSettings")]
     [Key("inputSettings")]
-    public IDictionary<string, object> InputSettings { get; init; }
+    public IDictionary<string, object> InputSettings { get; init; } = null!;
 
     /// <summary>
-    ///     <see langword="true" /> == apply the settings on top of existing ones, <see langword="false" /> == reset the input to its defaults, then
+    ///     <see langword="true" /> == apply the settings on top of existing ones, <see langword="false" /> == reset the input
+    ///     to its defaults, then
     ///     apply settings.
     /// </summary>
     [JsonPropertyName("overlay")]

@@ -7,21 +7,21 @@ namespace ObsWebSocket.Net.Events;
 ///     A source filter's enable state has changed.
 /// </summary>
 [MessagePackObject]
-public struct SourceFilterEnableStateChanged
+public class SourceFilterEnableStateChanged
 {
     /// <summary>
     ///     Name of the source the filter is on
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the filter
     /// </summary>
     [JsonPropertyName("filterName")]
     [Key("filterName")]
-    public string FilterName { get; init; }
+    public string FilterName { get; init; } = null!;
 
     /// <summary>
     ///     Whether the filter is enabled

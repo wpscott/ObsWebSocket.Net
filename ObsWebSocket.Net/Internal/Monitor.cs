@@ -4,11 +4,11 @@ using MessagePack;
 namespace ObsWebSocket.Net.Internal;
 
 [MessagePackObject]
-public struct Monitor
+public class Monitor
 {
     [JsonPropertyName("monitorName")]
     [Key("monitorName")]
-    public string MonitorName { get; init; }
+    public string MonitorName { get; init; } = null!;
 
     [JsonPropertyName("monitorIndex")]
     [Key("monitorIndex")]

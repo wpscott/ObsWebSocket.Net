@@ -11,12 +11,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct SetCurrentSceneTransition
+public class SetCurrentSceneTransition
 {
     /// <summary>
     ///     Name of the transition to make active
     /// </summary>
     [JsonPropertyName("transitionName")]
     [Key("transitionName")]
-    public string TransitionName { get; init; }
+    public string TransitionName { get; init; } = null!;
 }

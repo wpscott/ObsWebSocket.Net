@@ -8,21 +8,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     <remarks>Compatible with inputs and scenes.</remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetSourceActive
+public class GetSourceActive
 {
     /// <summary>
     ///     Name of the source to get the active state of
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the active and show state of a source.
 /// </summary>
 [MessagePackObject]
-public struct GetSourceActiveResponse
+public class GetSourceActiveResponse
 {
     /// <summary>
     ///     Whether the source is showing in Program

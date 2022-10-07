@@ -39,34 +39,37 @@ public sealed partial class ObsWebSocketClient
 
                 var message = MessagePackSerializer.Deserialize<Message>(buffer);
 
-                switch (message.OpCode)
+                switch (message?.OpCode)
                 {
                     case OpCode.Hello:
                         OnConnected?.Invoke();
 
                         var helloMessage = MessagePackSerializer.Deserialize<Message<Hello>>(buffer);
-                        var hello = helloMessage.Data;
+                        var hello = helloMessage?.Data;
 
-                        Identify(hello.Authentication, eventSubscriptions);
+                        Identify(hello?.Authentication, eventSubscriptions);
                         break;
                     case OpCode.Identified:
                         OnIdentified?.Invoke();
                         break;
                     case OpCode.Event:
                         var eventMessage = MessagePackSerializer.Deserialize<Message<Event>>(buffer);
-                        HandleEvents(eventMessage.Data);
+                        HandleEvents(eventMessage?.Data);
                         break;
                     case OpCode.RequestResponse:
                         var response = MessagePackSerializer.Deserialize<Message<RequestResponse>>(buffer);
-                        var data = DeserializeRequestResponse(response.Data);
-                        if (TryRemoveInvocation(response.Data.RequestId, out InvocationRequest irq))
+                        var data = DeserializeRequestResponse(response?.Data);
+                        if (TryRemoveInvocation(response?.Data.RequestId, out InvocationRequest? irq))
                             DispatchInvocationCompletion(data, irq);
 
                         break;
                     case OpCode.RequestBatchResponse:
                         var batchResponse = MessagePackSerializer.Deserialize<Message<RequestBatchResponse>>(buffer);
-                        var results = batchResponse.Data.Results.Select(re => DeserializeRequestResponse(re)).ToList();
-                        if (TryRemoveInvocation(batchResponse.Data.RequestId, out InvocationBatchRequest ibrq))
+                        var results = new List<object?>();
+                        if (batchResponse != null)
+                            results = batchResponse.Data.Results.Select(re => DeserializeRequestResponse(re)).ToList();
+
+                        if (TryRemoveInvocation(batchResponse?.Data.RequestId, out InvocationBatchRequest? ibrq))
                             DispatchInvocationCompletion(results, ibrq);
 
                         break;

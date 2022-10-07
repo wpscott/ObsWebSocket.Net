@@ -8,12 +8,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     <para>Similar to <see cref="GetInputKindList" /></para>
 /// </summary>
 [MessagePackObject]
-public struct GetTransitionKindListResponse
+public class GetTransitionKindListResponse
 {
     /// <summary>
     ///     Array of transition kinds
     /// </summary>
     [JsonPropertyName("transitionKinds")]
     [Key("transitionKinds")]
-    public IReadOnlyList<string> TransitionKinds { get; init; }
+    public IReadOnlyList<string> TransitionKinds { get; init; } = null!;
 }

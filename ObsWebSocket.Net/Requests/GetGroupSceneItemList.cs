@@ -12,26 +12,26 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetGroupSceneItemList
+public class GetGroupSceneItemList
 {
     /// <summary>
     ///     Name of the group to get the items of
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Basically GetSceneItemList, but for groups.
 /// </summary>
 [MessagePackObject]
-public struct GetGroupSceneItemListResponse
+public class GetGroupSceneItemListResponse
 {
     /// <summary>
     ///     Array of scene items in the group
     /// </summary>
     [JsonPropertyName("sceneItems")]
     [Key("sceneItems")]
-    public IReadOnlyList<SceneItem> SceneItems { get; init; }
+    public IReadOnlyList<SceneItem> SceneItems { get; init; } = null!;
 }

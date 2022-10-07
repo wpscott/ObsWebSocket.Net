@@ -11,33 +11,33 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetInputPropertiesListPropertyItems
+public class GetInputPropertiesListPropertyItems
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the list property to get the items of
     /// </summary>
     [JsonPropertyName("propertyName")]
     [Key("propertyName")]
-    public string PropertyName { get; init; }
+    public string PropertyName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the items of a list property from an input's properties.
 /// </summary>
 [MessagePackObject]
-public struct GetInputPropertiesListPropertyItemsResponse
+public class GetInputPropertiesListPropertyItemsResponse
 {
     /// <summary>
     ///     Array of items in the list property
     /// </summary>
     [JsonPropertyName("propertyItems")]
     [Key("propertyItems")]
-    public IReadOnlyList<InputPropertyItem> PropertyItems { get; init; }
+    public IReadOnlyList<InputPropertyItem> PropertyItems { get; init; } = null!;
 }

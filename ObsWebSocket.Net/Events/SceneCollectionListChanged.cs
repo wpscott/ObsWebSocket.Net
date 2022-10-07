@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     The scene collection list has changed.
 /// </summary>
 [MessagePackObject]
-public struct SceneCollectionListChanged
+public class SceneCollectionListChanged
 {
     /// <summary>
     ///     Updated list of scene collections
     /// </summary>
     [JsonPropertyName("sceneCollections")]
     [Key("sceneCollections")]
-    public IReadOnlyList<string> SceneCollection { get; init; }
+    public IReadOnlyList<string> SceneCollection { get; init; } = null!;
 }

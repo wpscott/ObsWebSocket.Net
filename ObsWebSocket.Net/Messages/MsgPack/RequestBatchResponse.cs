@@ -8,9 +8,9 @@ namespace ObsWebSocket.Net.Messages.MsgPack;
 ///     <para>Description: obs-websocket is responding to a request batch coming from the client.</para>
 /// </summary>
 [MessagePackObject]
-public struct RequestBatchResponse
+public class RequestBatchResponse
 {
-    [Key("requestId")] public string RequestId { get; init; }
+    [Key("requestId")] public string RequestId { get; init; } = null!;
 
-    [Key("results")] public IReadOnlyList<RequestResponse> Results { get; init; }
+    [Key("results")] public IReadOnlyList<RequestResponse> Results { get; init; } = null!;
 }

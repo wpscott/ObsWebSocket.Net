@@ -7,26 +7,26 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the default settings for a filter kind.
 /// </summary>
 [MessagePackObject]
-public struct GetSourceFilterDefaultSettings
+public class GetSourceFilterDefaultSettings
 {
     /// <summary>
     ///     Filter kind to get the default settings for
     /// </summary>
     [JsonPropertyName("filterKind")]
     [Key("filterKind")]
-    public string FilterKind { get; init; }
+    public string FilterKind { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the default settings for a filter kind.
 /// </summary>
 [MessagePackObject]
-public struct GetSourceFilterDefaultSettingsResponse
+public class GetSourceFilterDefaultSettingsResponse
 {
     /// <summary>
     ///     Object of default settings for the filter kind
     /// </summary>
     [JsonPropertyName("defaultFilterSettings")]
     [Key("defaultFilterSettings")]
-    public IReadOnlyDictionary<string, object> DefaultFilterSettings { get; init; }
+    public IReadOnlyDictionary<string, object> DefaultFilterSettings { get; init; } = null!;
 }

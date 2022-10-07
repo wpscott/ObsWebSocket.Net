@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sets the audio sync offset of an input.
 /// </summary>
 [MessagePackObject]
-public struct SetInputAudioSyncOffset
+public class SetInputAudioSyncOffset
 {
     /// <summary>
     ///     Name of the input to set the audio sync offset of
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     <para>New audio sync offset in milliseconds	</para>

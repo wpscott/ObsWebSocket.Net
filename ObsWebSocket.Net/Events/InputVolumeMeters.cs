@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     A high-volume event providing volume levels of all active inputs every 50 milliseconds.
 /// </summary>
 [MessagePackObject]
-public struct InputVolumeMeters
+public class InputVolumeMeters
 {
     /// <summary>
     ///     Array of active inputs with their associated volume levels
     /// </summary>
     [JsonPropertyName("inputs")]
     [Key("inputs")]
-    public IReadOnlyList<IReadOnlyDictionary<string, object>> Inputs { get; init; }
+    public IReadOnlyList<IReadOnlyDictionary<string, object>> Inputs { get; init; } = null!;
 }

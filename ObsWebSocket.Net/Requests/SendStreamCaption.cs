@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sends CEA-608 caption text over the stream output.
 /// </summary>
 [MessagePackObject]
-public struct SendStreamCaption
+public class SendStreamCaption
 {
     /// <summary>
     ///     Caption text
     /// </summary>
     [JsonPropertyName("captionText")]
     [Key("captionText")]
-    public string CaptionText { get; init; }
+    public string CaptionText { get; init; } = null!;
 }

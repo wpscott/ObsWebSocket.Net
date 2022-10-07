@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets statistics about OBS, obs-websocket, and the current session.
 /// </summary>
 [MessagePackObject]
-public struct GetStatsResponse
+public class GetStatsResponse
 {
     /// <summary>
     ///     Current CPU usage in percent

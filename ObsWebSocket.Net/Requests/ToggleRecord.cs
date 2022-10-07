@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Toggles the status of the record output.
 /// </summary>
 [MessagePackObject]
-public struct ToggleRecord
+public class ToggleRecord
 {
 }

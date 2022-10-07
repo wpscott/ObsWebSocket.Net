@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Resumes the record output.
 /// </summary>
 [MessagePackObject]
-public struct ResumeRecord
+public class ResumeRecord
 {
 }

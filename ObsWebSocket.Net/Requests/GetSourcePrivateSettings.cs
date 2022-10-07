@@ -3,18 +3,18 @@ using MessagePack;
 
 namespace ObsWebSocket.Net.Requests;
 
-[MessagePackObject()]
-public struct GetSourcePrivateSettings
+[MessagePackObject]
+public class GetSourcePrivateSettings
 {
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 }
 
-[MessagePackObject()]
-public struct GetSourcePrivateSettingsResponse
+[MessagePackObject]
+public class GetSourcePrivateSettingsResponse
 {
     [JsonPropertyName("sourceSettings")]
     [Key("sourceSettings")]
-    public IReadOnlyDictionary<string, object> SourceSettings { get; init; }
+    public IReadOnlyDictionary<string, object> SourceSettings { get; init; } = null!;
 }

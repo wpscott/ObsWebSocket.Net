@@ -9,7 +9,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Triggers a hotkey using a sequence of keys.
 /// </summary>
 [MessagePackObject]
-public struct TriggerHotkeyByKeySequence
+public class TriggerHotkeyByKeySequence
 {
     /// <summary>
     ///     The OBS key ID to use. See <see href="https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h" />
@@ -28,7 +28,7 @@ public struct TriggerHotkeyByKeySequence
 }
 
 [MessagePackObject]
-public struct KeyModifier
+public class KeyModifier
 {
     /// <summary>
     ///     Press Shift

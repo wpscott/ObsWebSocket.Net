@@ -5,7 +5,7 @@ using ObsWebSocket.Net.Enums;
 namespace ObsWebSocket.Net.Messages;
 
 [MessagePackObject]
-public struct RequestResponseStatus
+public class RequestResponseStatus
 {
     /// <summary>
     ///     <see cref="Result" /> is <c>true</c> if the request resulted in

@@ -7,21 +7,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     Toggles the status of an output.
 /// </summary>
 [MessagePackObject]
-public struct ToggleOutput
+public class ToggleOutput
 {
     /// <summary>
     ///     Output name
     /// </summary>
     [JsonPropertyName("outputName")]
     [Key("outputName")]
-    public string OutputName { get; init; }
+    public string OutputName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Toggles the status of an output.
 /// </summary>
 [MessagePackObject]
-public struct ToggleOutputResponse
+public class ToggleOutputResponse
 {
     /// <summary>
     ///     Whether the output is active

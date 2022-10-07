@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Events;
 ///     The state of the stream output has changed.
 /// </summary>
 [MessagePackObject]
-public struct StreamStateChanged
+public class StreamStateChanged
 {
     /// <summary>
     ///     Whether the output is active
@@ -21,5 +21,5 @@ public struct StreamStateChanged
     /// </summary>
     [JsonPropertyName("outputState")]
     [Key("outputState")]
-    public string OutputState { get; init; }
+    public string OutputState { get; init; } = null!;
 }

@@ -8,12 +8,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     <remarks>Note: Will immediately remove all associated scene items.</remarks>
 /// </summary>
 [MessagePackObject]
-public struct RemoveInput
+public class RemoveInput
 {
     /// <summary>
     ///     Name of the input to remove
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 }

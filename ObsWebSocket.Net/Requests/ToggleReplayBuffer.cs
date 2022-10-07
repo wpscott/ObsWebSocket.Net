@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Toggles the state of the replay buffer output.
 /// </summary>
 [MessagePackObject]
-public struct ToggleReplayBufferResponse
+public class ToggleReplayBufferResponse
 {
     /// <summary>
     ///     Whether the output is active

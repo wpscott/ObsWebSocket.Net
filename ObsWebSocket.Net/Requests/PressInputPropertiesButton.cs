@@ -13,19 +13,19 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct PressInputPropertiesButton
+public class PressInputPropertiesButton
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the button property to press
     /// </summary>
     [JsonPropertyName("propertyName")]
     [Key("propertyName")]
-    public string PropertyName { get; init; }
+    public string PropertyName { get; init; } = null!;
 }

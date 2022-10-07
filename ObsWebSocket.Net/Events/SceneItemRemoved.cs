@@ -8,21 +8,21 @@ namespace ObsWebSocket.Net.Events;
 ///     <para>This event is not emitted when the scene the item is in is removed.</para>
 /// </summary>
 [MessagePackObject]
-public struct SceneItemRemoved
+public class SceneItemRemoved
 {
     /// <summary>
     ///     Name of the scene the item was removed from
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the underlying source (input/scene)
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item

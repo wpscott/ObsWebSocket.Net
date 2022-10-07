@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Events;
 ///     The state of the record output has changed.
 /// </summary>
 [MessagePackObject]
-public struct RecordStateChanged
+public class RecordStateChanged
 {
     /// <summary>
     ///     Whether the output is active
@@ -21,7 +21,7 @@ public struct RecordStateChanged
     /// </summary>
     [JsonPropertyName("outputState")]
     [Key("outputState")]
-    public string OutputState { get; init; }
+    public string OutputState { get; init; } = null!;
 
     /// <summary>
     ///     File name for the saved recording, if record stopped. <c>null</c> otherwise

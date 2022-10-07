@@ -8,14 +8,14 @@ namespace ObsWebSocket.Net.Events;
 ///     An action has been performed on an input.
 /// </summary>
 [MessagePackObject]
-public struct MediaInputActionTriggered
+public class MediaInputActionTriggered
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Action performed on the input. See <see cref="ObsWebSocketMediaInputAction" /> enum

@@ -9,7 +9,7 @@ namespace ObsWebSocket.Net.Messages.Json;
 ///     <para>Sent to: All subscribed and identified clients</para>
 ///     <para>Description: An event coming from OBS has occured. Eg scene switched, source muted.</para>
 /// </summary>
-public struct Event
+public class Event
 {
     [JsonPropertyName("eventType")] public EventType EventType { get; init; }
 
@@ -20,5 +20,5 @@ public struct Event
     [JsonPropertyName("eventIntent")]
     public int EventIntent { get; init; }
 
-    [JsonPropertyName("eventData")] public JsonDocument EventData { get; init; }
+    [JsonPropertyName("eventData")] public JsonDocument EventData { get; init; } = null!;
 }

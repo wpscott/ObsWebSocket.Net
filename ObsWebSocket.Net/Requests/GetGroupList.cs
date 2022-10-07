@@ -11,12 +11,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     </para>
 /// </summary>
 [MessagePackObject]
-public struct GetGroupListResponse
+public class GetGroupListResponse
 {
     /// <summary>
     ///     Array of group names
     /// </summary>
     [JsonPropertyName("groups")]
     [Key("groups")]
-    public IReadOnlyList<string> Groups { get; init; }
+    public IReadOnlyList<string> Groups { get; init; } = null!;
 }

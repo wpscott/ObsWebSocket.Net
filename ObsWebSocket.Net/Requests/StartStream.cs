@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Starts the stream output.
 /// </summary>
 [MessagePackObject]
-public struct StartStream
+public class StartStream
 {
 }

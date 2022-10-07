@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Toggles the state of the virtualcam output.
 /// </summary>
 [MessagePackObject]
-public struct ToggleVirtualCamResponse
+public class ToggleVirtualCamResponse
 {
     /// <summary>
     ///     Whether the output is active

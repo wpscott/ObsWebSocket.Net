@@ -4,7 +4,7 @@ using MessagePack;
 namespace ObsWebSocket.Net.Internal;
 
 [MessagePackObject]
-public struct Filter
+public class Filter
 {
     [JsonPropertyName("filterEnabled")]
     [Key("filterEnabled")]
@@ -16,13 +16,13 @@ public struct Filter
 
     [JsonPropertyName("filterKind")]
     [Key("filterKind")]
-    public string FilterKind { get; init; }
+    public string FilterKind { get; init; } = null!;
 
     [JsonPropertyName("filterName")]
     [Key("filterName")]
-    public string FilterName { get; init; }
+    public string FilterName { get; init; } = null!;
 
     [JsonPropertyName("filterSettings")]
     [Key("filterSettings")]
-    public IReadOnlyDictionary<string, object> FilterSettings { get; init; }
+    public IReadOnlyDictionary<string, object> FilterSettings { get; init; } = null!;
 }

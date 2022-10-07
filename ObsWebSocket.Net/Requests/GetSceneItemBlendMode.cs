@@ -11,14 +11,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     <remarks>Scenes and Groups</remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetSceneItemBlendMode
+public class GetSceneItemBlendMode
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item
@@ -32,7 +32,7 @@ public struct GetSceneItemBlendMode
 ///     Gets the enable state of a scene item.
 /// </summary>
 [MessagePackObject]
-public struct GetSceneItemBlendModeResponse
+public class GetSceneItemBlendModeResponse
 {
     /// <summary>
     ///     Current blend mode

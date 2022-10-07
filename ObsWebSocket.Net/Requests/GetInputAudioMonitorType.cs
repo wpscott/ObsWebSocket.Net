@@ -9,21 +9,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the audio monitor type of an input.
 /// </summary>
 [MessagePackObject]
-public struct GetInputAudioMonitorType
+public class GetInputAudioMonitorType
 {
     /// <summary>
     ///     Name of the input to get the audio monitor type of
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the audio monitor type of an input.
 /// </summary>
 [MessagePackObject]
-public struct GetInputAudioMonitorTypeResponse
+public class GetInputAudioMonitorTypeResponse
 {
     /// <summary>
     ///     Audio monitor type

@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     The current profile has changed.
 /// </summary>
 [MessagePackObject]
-public struct CurrentProfileChanged
+public class CurrentProfileChanged
 {
     /// <summary>
     ///     Name of the current profile
     /// </summary>
     [JsonPropertyName("profileName")]
     [Key("profileName")]
-    public string ProfileName { get; init; }
+    public string ProfileName { get; init; } = null!;
 }

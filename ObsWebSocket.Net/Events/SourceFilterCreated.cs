@@ -7,28 +7,28 @@ namespace ObsWebSocket.Net.Events;
 ///     A filter has been added to a source.
 /// </summary>
 [MessagePackObject]
-public struct SourceFilterCreated
+public class SourceFilterCreated
 {
     /// <summary>
     ///     Name of the source the filter was added to
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the filter
     /// </summary>
     [JsonPropertyName("filterName")]
     [Key("filterName")]
-    public string FilterName { get; init; }
+    public string FilterName { get; init; } = null!;
 
     /// <summary>
     ///     The kind of the filter
     /// </summary>
     [JsonPropertyName("filterKind")]
     [Key("filterKind")]
-    public string FilterKind { get; init; }
+    public string FilterKind { get; init; } = null!;
 
     /// <summary>
     ///     Index position of the filter
@@ -42,12 +42,12 @@ public struct SourceFilterCreated
     /// </summary>
     [JsonPropertyName("filterSettings")]
     [Key("filterSettings")]
-    public IReadOnlyDictionary<string, object> FilterSettings { get; init; }
+    public IReadOnlyDictionary<string, object> FilterSettings { get; init; } = null!;
 
     /// <summary>
     ///     The default settings for the filter
     /// </summary>
     [JsonPropertyName("defaultFilterSettings")]
     [Key("defaultFilterSettings")]
-    public IReadOnlyDictionary<string, object> DefaultFilterSettings { get; init; }
+    public IReadOnlyDictionary<string, object> DefaultFilterSettings { get; init; } = null!;
 }

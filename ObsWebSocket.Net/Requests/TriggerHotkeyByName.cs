@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Triggers a hotkey using its name. See GetHotkeyList
 /// </summary>
 [MessagePackObject]
-public struct TriggerHotkeyByName
+public class TriggerHotkeyByName
 {
     /// <summary>
     ///     Name of the hotkey to trigger
     /// </summary>
     [JsonPropertyName("hotkeyName")]
     [Key("hotkeyName")]
-    public string HotkeyName { get; init; }
+    public string HotkeyName { get; init; } = null!;
 }

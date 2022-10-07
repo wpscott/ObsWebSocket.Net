@@ -7,21 +7,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     Creates a new scene item using a source.
 /// </summary>
 [MessagePackObject]
-public struct CreateSceneItem
+public class CreateSceneItem
 {
     /// <summary>
     ///     Name of the scene to create the new item in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the source to add to the scene
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Enable state to apply to the scene item on creation
@@ -35,7 +35,7 @@ public struct CreateSceneItem
 ///     Creates a new scene item using a source.
 /// </summary>
 [MessagePackObject]
-public struct CreateSceneItemResponse
+public class CreateSceneItemResponse
 {
     /// <summary>
     ///     Numeric ID of the scene item

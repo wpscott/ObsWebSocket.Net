@@ -8,7 +8,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets an array of all inputs in OBS.
 /// </summary>
 [MessagePackObject]
-public struct GetInputList
+public class GetInputList
 {
     /// <summary>
     ///     Restrict the array to only inputs of the specified kind
@@ -22,12 +22,12 @@ public struct GetInputList
 ///     Gets an array of all inputs in OBS.
 /// </summary>
 [MessagePackObject]
-public struct GetInputListResponse
+public class GetInputListResponse
 {
     /// <summary>
     ///     Array of inputs
     /// </summary>
     [JsonPropertyName("inputs")]
     [Key("inputs")]
-    public IReadOnlyList<Input> Inputs { get; init; }
+    public IReadOnlyList<Input> Inputs { get; init; } = null!;
 }

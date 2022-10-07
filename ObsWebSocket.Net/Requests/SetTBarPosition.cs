@@ -8,7 +8,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     <remarks>Very important note: This will be deprecated and replaced in a future version of obs-websocket.</remarks>
 /// </summary>
 [MessagePackObject]
-public struct SetTBarPosition
+public class SetTBarPosition
 {
     /// <summary>
     ///     <para>New position</para>

@@ -7,28 +7,28 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the info for a specific source filter.
 /// </summary>
 [MessagePackObject]
-public struct GetSourceFilter
+public class GetSourceFilter
 {
     /// <summary>
     ///     Name of the source
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the filter
     /// </summary>
     [JsonPropertyName("filterName")]
     [Key("filterName")]
-    public string FilterName { get; init; }
+    public string FilterName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the info for a specific source filter.
 /// </summary>
 [MessagePackObject]
-public struct GetSourceFilterResponse
+public class GetSourceFilterResponse
 {
     /// <summary>
     ///     Whether the filter is enabled
@@ -49,12 +49,12 @@ public struct GetSourceFilterResponse
     /// </summary>
     [JsonPropertyName("filterKind")]
     [Key("filterKind")]
-    public string FilterKind { get; init; }
+    public string FilterKind { get; init; } = null!;
 
     /// <summary>
     ///     Settings object associated with the filter
     /// </summary>
     [JsonPropertyName("filterSettings")]
     [Key("filterSettings")]
-    public IReadOnlyDictionary<string, object> FilterSettings { get; init; }
+    public IReadOnlyDictionary<string, object> FilterSettings { get; init; } = null!;
 }

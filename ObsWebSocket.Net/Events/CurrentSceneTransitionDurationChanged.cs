@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Events;
 ///     The current scene transition duration has changed.
 /// </summary>
 [MessagePackObject]
-public struct CurrentSceneTransitionDurationChanged
+public class CurrentSceneTransitionDurationChanged
 {
     /// <summary>
     ///     Transition duration in milliseconds

@@ -11,12 +11,12 @@ namespace ObsWebSocket.Net.Events;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct CurrentSceneCollectionChanging
+public class CurrentSceneCollectionChanging
 {
     /// <summary>
     ///     Name of the current scene collection
     /// </summary>
     [JsonPropertyName("sceneCollectionName")]
     [Key("sceneCollectionName")]
-    public string SceneCollectionName { get; init; }
+    public string SceneCollectionName { get; init; } = null!;
 }

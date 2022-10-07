@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Events;
 ///     A scene item's enable state has changed.
 /// </summary>
 [MessagePackObject]
-public struct SceneItemEnableStateChanged
+public class SceneItemEnableStateChanged
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item

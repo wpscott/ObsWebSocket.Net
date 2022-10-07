@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the status of the replay buffer output.
 /// </summary>
 [MessagePackObject]
-public struct GetReplayBufferStatusResponse
+public class GetReplayBufferStatusResponse
 {
     /// <summary>
     ///     Whether the output is active

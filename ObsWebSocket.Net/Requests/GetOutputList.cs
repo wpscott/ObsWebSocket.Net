@@ -8,12 +8,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the list of available outputs.
 /// </summary>
 [MessagePackObject]
-public struct GetOutputListResponse
+public class GetOutputListResponse
 {
     /// <summary>
     ///     Array of outputs
     /// </summary>
     [JsonPropertyName("outputs")]
     [Key("outputs")]
-    public IReadOnlyList<Output> Outputs { get; init; }
+    public IReadOnlyList<Output> Outputs { get; init; } = null!;
 }

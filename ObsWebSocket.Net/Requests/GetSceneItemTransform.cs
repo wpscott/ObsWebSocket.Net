@@ -8,14 +8,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the transform and crop info of a scene item.
 /// </summary>
 [MessagePackObject]
-public struct GetSceneItemTransform
+public class GetSceneItemTransform
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item
@@ -28,12 +28,12 @@ public struct GetSceneItemTransform
 /// <summary>
 /// </summary>
 [MessagePackObject]
-public struct GetSceneItemTransformResponse
+public class GetSceneItemTransformResponse
 {
     /// <summary>
     ///     Object containing scene item transform info
     /// </summary>
     [JsonPropertyName("sceneItemTransform")]
     [Key("sceneItemTransform")]
-    public SceneItemTransform SceneItemTransform { get; init; }
+    public SceneItemTransform SceneItemTransform { get; init; } = null!;
 }

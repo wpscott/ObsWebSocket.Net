@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Stops the virtualcam output.
 /// </summary>
 [MessagePackObject]
-public struct StopVirtualCam
+public class StopVirtualCam
 {
 }

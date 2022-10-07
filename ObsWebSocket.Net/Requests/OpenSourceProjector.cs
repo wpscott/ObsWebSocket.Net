@@ -12,14 +12,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct OpenSourceProjector
+public class OpenSourceProjector
 {
     /// <summary>
     ///     Name of the source to open a projector for
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Monitor index, use <see cref="RequestType.GetMonitorList" /> to obtain index

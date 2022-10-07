@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the status of the record output.
 /// </summary>
 [MessagePackObject]
-public struct GetRecordStatusResponse
+public class GetRecordStatusResponse
 {
     /// <summary>
     ///     Whether the output is active
@@ -28,7 +28,7 @@ public struct GetRecordStatusResponse
     /// </summary>
     [JsonPropertyName("outputTimecode")]
     [Key("outputTimecode")]
-    public string OutputTimecode { get; init; }
+    public string OutputTimecode { get; init; } = null!;
 
     /// <summary>
     ///     Current duration in milliseconds for the output

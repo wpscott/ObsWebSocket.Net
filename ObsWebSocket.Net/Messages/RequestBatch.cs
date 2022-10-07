@@ -14,11 +14,11 @@ namespace ObsWebSocket.Net.Messages;
 ///     </para>
 /// </summary>
 [MessagePackObject]
-public struct RequestBatch
+public class RequestBatch
 {
     [JsonPropertyName("requestId")]
     [Key("requestId")]
-    public string RequestId { get; init; }
+    public string RequestId { get; init; } = null!;
 
     /// <summary>
     ///     When <see cref="HaltOnFailure" /> is <c>true</c>, the processing of requests will be halted on
@@ -39,5 +39,5 @@ public struct RequestBatch
     /// </summary>
     [JsonPropertyName("requests")]
     [Key("requests")]
-    public ICollection<Request> Requests { get; init; }
+    public ICollection<Request> Requests { get; init; } = null!;
 }

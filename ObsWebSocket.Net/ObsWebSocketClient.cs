@@ -97,8 +97,8 @@ public sealed partial class ObsWebSocketClient
         Send(message);
     }
 
-    public async Task<T> Invoke<T>(RequestType requestType, object? requestData = null,
-        CancellationToken cancellationToken = default)
+    public async Task<T?> Invoke<T>(RequestType requestType, object? requestData = null,
+        CancellationToken cancellationToken = default) where T : class
     {
         var irq = InvocationRequest.Invoke(RequestId, out var invocationTask, cancellationToken);
 
@@ -121,7 +121,7 @@ public sealed partial class ObsWebSocketClient
         };
         Send(message);
 
-        return (T)(await invocationTask)!;
+        return (T?)await invocationTask;
     }
 
     public async Task<IReadOnlyList<object?>> Invoke(
@@ -152,8 +152,14 @@ public sealed partial class ObsWebSocketClient
         return await invocationTask;
     }
 
-    private bool TryRemoveInvocation(in string requestId, out InvocationRequest irq)
+    private bool TryRemoveInvocation(in string? requestId, out InvocationRequest? irq)
     {
+        if (string.IsNullOrEmpty(requestId))
+        {
+            irq = null;
+            return false;
+        }
+
         lock (_lock)
         {
             if (!_pendingCalls.TryGetValue(requestId, out irq!)) return false;
@@ -162,8 +168,14 @@ public sealed partial class ObsWebSocketClient
         }
     }
 
-    private bool TryRemoveInvocation(in string requestId, out InvocationBatchRequest irq)
+    private bool TryRemoveInvocation(in string? requestId, out InvocationBatchRequest? irq)
     {
+        if (string.IsNullOrEmpty(requestId))
+        {
+            irq = null;
+            return false;
+        }
+
         lock (_lock)
         {
             if (!_pendingBatchCalls.TryGetValue(requestId, out irq!)) return false;
@@ -172,8 +184,9 @@ public sealed partial class ObsWebSocketClient
         }
     }
 
-    private static void DispatchInvocationCompletion(object? data, InvocationRequest irq)
+    private static void DispatchInvocationCompletion(in object? data, in InvocationRequest? irq)
     {
+        if (irq == null) return;
         if (irq.CancellationToken.IsCancellationRequested)
         {
         }
@@ -183,8 +196,9 @@ public sealed partial class ObsWebSocketClient
         }
     }
 
-    private static void DispatchInvocationCompletion(IReadOnlyList<object?> data, InvocationBatchRequest irq)
+    private static void DispatchInvocationCompletion(in IReadOnlyList<object?> data, in InvocationBatchRequest? irq)
     {
+        if (irq == null) return;
         if (irq.CancellationToken.IsCancellationRequested)
         {
         }
@@ -237,9 +251,9 @@ public sealed partial class ObsWebSocketClient
         Send(response);
     }
 
-    private partial void HandleEvents(in JsonEvent evt);
-    private partial void HandleEvents(in MsgPackEvent evt);
+    private partial void HandleEvents(in JsonEvent? evt);
+    private partial void HandleEvents(in MsgPackEvent? evt);
 
-    private static partial object? DeserializeRequestResponse(in JsonRequestResponse response);
-    private static partial object? DeserializeRequestResponse(in MsgPackRequestResponse response);
+    private static partial object? DeserializeRequestResponse(in JsonRequestResponse? response);
+    private static partial object? DeserializeRequestResponse(in MsgPackRequestResponse? response);
 }

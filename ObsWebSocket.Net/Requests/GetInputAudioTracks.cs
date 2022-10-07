@@ -7,26 +7,26 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the enable state of all audio tracks of an input.
 /// </summary>
 [MessagePackObject]
-public struct GetInputAudioTracks
+public class GetInputAudioTracks
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the enable state of all audio tracks of an input.
 /// </summary>
 [MessagePackObject]
-public struct GetInputAudioTracksResponse
+public class GetInputAudioTracksResponse
 {
     /// <summary>
     ///     Object of audio tracks and associated enable states
     /// </summary>
     [JsonPropertyName("inputAudioTracks")]
     [Key("inputAudioTracks")]
-    public IReadOnlyDictionary<string, bool> InputAudioTracks { get; init; }
+    public IReadOnlyDictionary<string, bool> InputAudioTracks { get; init; } = null!;
 }

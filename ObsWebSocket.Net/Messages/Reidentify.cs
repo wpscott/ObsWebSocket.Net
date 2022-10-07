@@ -14,7 +14,7 @@ namespace ObsWebSocket.Net.Messages;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct Reidentify
+public class Reidentify
 {
     [JsonPropertyName("eventSubscriptions")]
     [Key("eventSubscriptions")]

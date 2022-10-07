@@ -12,26 +12,26 @@ namespace ObsWebSocket.Net.Events;
 ///     </para>
 /// </summary>
 [MessagePackObject]
-public struct VendorEvent
+public class VendorEvent
 {
     /// <summary>
     ///     Name of the vendor emitting the event
     /// </summary>
     [JsonPropertyName("vendorName")]
     [Key("vendorName")]
-    public string VendorName { get; init; }
+    public string VendorName { get; init; } = null!;
 
     /// <summary>
     ///     Vendor-provided event typedef
     /// </summary>
     [JsonPropertyName("eventType")]
     [Key("eventType")]
-    public string EventType { get; init; }
+    public string EventType { get; init; } = null!;
 
     /// <summary>
     ///     Vendor-provided event data. {} if event does not provide any data
     /// </summary>
     [JsonPropertyName("eventData")]
     [Key("eventData")]
-    public IReadOnlyDictionary<string, object> EventData { get; init; }
+    public IReadOnlyDictionary<string, object> EventData { get; init; } = null!;
 }

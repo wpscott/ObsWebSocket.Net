@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     An input has been removed.
 /// </summary>
 [MessagePackObject]
-public struct InputRemoved
+public class InputRemoved
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 }

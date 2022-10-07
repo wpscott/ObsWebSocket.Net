@@ -11,19 +11,19 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct SetStreamServiceSettings
+public class SetStreamServiceSettings
 {
     /// <summary>
     ///     Type of stream service to apply. Example: <c>rtmp_custom</c> or <c>rtmp_common</c>
     /// </summary>
     [JsonPropertyName("streamServiceType")]
     [Key("streamServiceType")]
-    public string StreamServiceType { get; init; }
+    public string StreamServiceType { get; init; } = null!;
 
     /// <summary>
     ///     Settings to apply to the service
     /// </summary>
     [JsonPropertyName("streamServiceSettings")]
     [Key("streamServiceSettings")]
-    public IDictionary<string, object> StreamServiceSettings { get; init; }
+    public IDictionary<string, object> StreamServiceSettings { get; init; } = null!;
 }

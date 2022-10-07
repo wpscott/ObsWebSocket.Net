@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Messages.MsgPack;
 ///     The following message types are the low-level message types which may be sent to and from obs-websocket.
 /// </summary>
 [MessagePackObject]
-public struct Message
+public class Message
 {
     /// <summary>
     ///     <see cref="OpCode" /> is a <see cref="Enums.OpCode" />.

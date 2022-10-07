@@ -7,28 +7,28 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets a parameter from the current profile's configuration.
 /// </summary>
 [MessagePackObject]
-public struct GetProfileParameter
+public class GetProfileParameter
 {
     /// <summary>
     ///     Category of the parameter to get
     /// </summary>
     [JsonPropertyName("parameterCategory")]
     [Key("parameterCategory")]
-    public string ParameterCategory { get; init; }
+    public string ParameterCategory { get; init; } = null!;
 
     /// <summary>
     ///     Name of the parameter to get
     /// </summary>
     [JsonPropertyName("parameterName")]
     [Key("parameterName")]
-    public string ParameterName { get; init; }
+    public string ParameterName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets a parameter from the current profile's configuration.
 /// </summary>
 [MessagePackObject]
-public struct GetProfileParameterResponse
+public class GetProfileParameterResponse
 {
     /// <summary>
     ///     Value associated with the parameter. <see langword="null" /> if not set and no default

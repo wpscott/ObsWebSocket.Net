@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Events;
 ///     A scene item has been selected in the Ui.
 /// </summary>
 [MessagePackObject]
-public struct SceneItemSelected
+public class SceneItemSelected
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item

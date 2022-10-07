@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Toggles pause on the record output.
 /// </summary>
 [MessagePackObject]
-public struct ToggleRecordPause
+public class ToggleRecordPause
 {
 }

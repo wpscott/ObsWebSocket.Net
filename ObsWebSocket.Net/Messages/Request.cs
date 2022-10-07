@@ -10,7 +10,7 @@ namespace ObsWebSocket.Net.Messages;
 ///     <para>Description: Client is making a request to obs-websocket. E.g. get current scene, create source.</para>
 /// </summary>
 [MessagePackObject]
-public struct Request<T> where T : struct
+public class Request<T> where T : class
 {
     [JsonPropertyName("requestType")]
     [Key("requestType")]
@@ -19,7 +19,7 @@ public struct Request<T> where T : struct
 
     [JsonPropertyName("requestId")]
     [Key("requestId")]
-    public string RequestId { get; init; }
+    public string RequestId { get; init; } = null!;
 
     [JsonPropertyName("requestData")]
     [Key("requestData")]
@@ -32,7 +32,7 @@ public struct Request<T> where T : struct
 ///     <para>Description: Client is making a request to obs-websocket. E.g. get current scene, create source.</para>
 /// </summary>
 [MessagePackObject]
-public struct Request
+public class Request
 {
     [JsonPropertyName("requestType")]
     [Key("requestType")]
@@ -41,7 +41,7 @@ public struct Request
 
     [JsonPropertyName("requestId")]
     [Key("requestId")]
-    public string RequestId { get; init; }
+    public string RequestId { get; init; } = null!;
 
     [JsonPropertyName("requestData")]
     [Key("requestData")]

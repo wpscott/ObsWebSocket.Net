@@ -7,21 +7,21 @@ namespace ObsWebSocket.Net.Events;
 ///     A scene item has been created.
 /// </summary>
 [MessagePackObject]
-public struct SceneItemCreated
+public class SceneItemCreated
 {
     /// <summary>
     ///     Name of the scene the item was added to
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the underlying source (input/scene)
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item

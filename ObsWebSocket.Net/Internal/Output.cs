@@ -6,15 +6,15 @@ using ObsWebSocket.Net.Enums.Obs;
 namespace ObsWebSocket.Net.Internal;
 
 [MessagePackObject]
-public struct Output
+public class Output
 {
     [JsonPropertyName("outputName")]
     [Key("outputName")]
-    public string OutputName { get; init; }
+    public string OutputName { get; init; } = null!;
 
     [JsonPropertyName("outputKind")]
     [Key("outputKind")]
-    public string OutputKind { get; init; }
+    public string OutputKind { get; init; } = null!;
 
     [JsonPropertyName("outputWidth")]
     [Key("outputWidth")]
@@ -31,5 +31,5 @@ public struct Output
     [JsonPropertyName("outputFlags")]
     [Key("outputFlags")]
     [MessagePackFormatter(typeof(OutputFlagsFormatter))]
-    public IReadOnlyDictionary<ObsOutputFlags, bool> OutputFlags { get; init; }
+    public IReadOnlyDictionary<ObsOutputFlags, bool> OutputFlags { get; init; } = null!;
 }

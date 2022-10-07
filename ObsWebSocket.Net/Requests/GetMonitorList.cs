@@ -8,12 +8,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets a list of connected monitors and information about them.
 /// </summary>
 [MessagePackObject]
-public struct GetMonitorListResponse
+public class GetMonitorListResponse
 {
     /// <summary>
     ///     a list of detected monitors with some information
     /// </summary>
     [JsonPropertyName("monitors")]
     [Key("monitors")]
-    public IReadOnlyList<Monitor> Monitors { get; init; }
+    public IReadOnlyList<Monitor> Monitors { get; init; } = null!;
 }

@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets an array of all hotkey names in OBS
 /// </summary>
 [MessagePackObject]
-public struct GetHotkeyListResponse
+public class GetHotkeyListResponse
 {
     /// <summary>
     ///     Array of hotkey names
     /// </summary>
     [JsonPropertyName("hotkeys")]
     [Key("hotkeys")]
-    public IReadOnlyList<string> Hotkeys { get; init; }
+    public IReadOnlyList<string> Hotkeys { get; init; } = null!;
 }

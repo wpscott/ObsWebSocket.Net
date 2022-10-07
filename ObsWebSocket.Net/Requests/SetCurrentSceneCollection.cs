@@ -8,12 +8,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     <remarks>Note: This will block until the collection has finished changing.</remarks>
 /// </summary>
 [MessagePackObject]
-public struct SetCurrentSceneCollection
+public class SetCurrentSceneCollection
 {
     /// <summary>
     ///     Name of the scene collection to switch to
     /// </summary>
     [JsonPropertyName("sceneCollectionName")]
     [Key("sceneCollectionName")]
-    public string SceneCollectionName { get; init; }
+    public string SceneCollectionName { get; init; } = null!;
 }

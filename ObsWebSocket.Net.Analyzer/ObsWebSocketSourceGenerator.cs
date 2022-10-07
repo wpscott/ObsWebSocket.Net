@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -51,7 +52,7 @@ namespace ObsWebSocket.Net;
             {
                 sb.Append("(");
                 sb.Append(type);
-                sb.Append(" e)");
+                sb.Append("? e)");
             }
             else
             {
@@ -98,13 +99,17 @@ namespace ObsWebSocket.Net;
 
 public sealed partial class ObsWebSocketClient
 {");
-        json.AppendLine(@"    private partial void HandleEvents(in JsonEvent evt)
+        json.AppendLine(@"    private partial void HandleEvents(in JsonEvent? evt)
     {
+        if (evt == null) return;
+
         switch(evt.EventType)
         {");
         msgpack.AppendLine(@"
-    private partial void HandleEvents(in MsgPackEvent evt)
+    private partial void HandleEvents(in MsgPackEvent? evt)
     {
+        if (evt == null) return;
+
         switch(evt.EventType)
         {");
         foreach (var type in eventTypes.Members.Select(member => member.Identifier.Text))
@@ -153,15 +158,16 @@ public sealed partial class ObsWebSocketClient
 
     private static void ProcessRequestTypes(GeneratorExecutionContext context, EnumDeclarationSyntax requestTypes)
     {
-        ProcessRequest(context, requestTypes);
-        ProcessDeserializeRequestResponse(context, requestTypes);
+        var classes = context.Compilation.SyntaxTrees.SelectMany(syntaxTree =>
+            syntaxTree.GetRoot().DescendantNodes().OfType<ClassDeclarationSyntax>()).ToArray();
+
+        ProcessRequest(context, requestTypes, classes);
+        ProcessDeserializeRequestResponse(context, requestTypes, classes);
     }
 
-    private static void ProcessRequest(GeneratorExecutionContext context, EnumDeclarationSyntax requestTypes)
+    private static void ProcessRequest(GeneratorExecutionContext context, EnumDeclarationSyntax requestTypes,
+        IReadOnlyList<ClassDeclarationSyntax> classes)
     {
-        var structs = context.Compilation.SyntaxTrees.SelectMany(syntaxTree =>
-            syntaxTree.GetRoot().DescendantNodes().OfType<StructDeclarationSyntax>()).ToArray();
-
         var sb = new StringBuilder();
 
         var newRequest = new StringBuilder();
@@ -174,21 +180,21 @@ using ObsWebSocket.Net.Requests;
 
 namespace ObsWebSocket.Net;
 
-public static class ObSWebSocketExtensions
+public static class ObsWebSocketExtensions
 {");
         foreach (var type in requestTypes.Members.Select(member => member.Identifier.Text))
         {
             newRequest.Clear();
             sb.Append("    public static ");
-            var request = structs.FirstOrDefault(s => s.Identifier.Text == type);
-            var response = structs.FirstOrDefault(s => s.Identifier.Text == type + "Response");
+            var request = classes.FirstOrDefault(s => s.Identifier.Text == type);
+            var response = classes.FirstOrDefault(s => s.Identifier.Text == type + "Response");
             var hasRequest = request != null;
             var hasResponse = response != null;
             if (hasResponse)
             {
                 sb.Append("Task<");
                 sb.Append(type);
-                sb.Append("Response> ");
+                sb.Append("Response?> ");
                 sb.Append(type);
             }
             else
@@ -245,11 +251,8 @@ public static class ObSWebSocketExtensions
     }
 
     private static void ProcessDeserializeRequestResponse(GeneratorExecutionContext context,
-        EnumDeclarationSyntax requestTypes)
+        EnumDeclarationSyntax requestTypes, IReadOnlyList<ClassDeclarationSyntax> classes)
     {
-        var structs = context.Compilation.SyntaxTrees.SelectMany(syntaxTree =>
-            syntaxTree.GetRoot().DescendantNodes().OfType<StructDeclarationSyntax>()).ToArray();
-
         var sb = new StringBuilder();
         var json = new StringBuilder();
         var msgpack = new StringBuilder();
@@ -267,20 +270,20 @@ namespace ObsWebSocket.Net;
 public sealed partial class ObsWebSocketClient
 {");
         json.AppendLine(
-            @"    private static partial object? DeserializeRequestResponse(in JsonRequestResponse response)
+            @"    private static partial object? DeserializeRequestResponse(in JsonRequestResponse? response)
     {
-        if (response.ResponseData == null) return null;
+        if (response == null || response.ResponseData == null) return null;
         switch(response.RequestType)
         {");
         msgpack.AppendLine(@"
-    private static partial object? DeserializeRequestResponse(in MsgPackRequestResponse response)
+    private static partial object? DeserializeRequestResponse(in MsgPackRequestResponse? response)
     {
-        if (response.ResponseData == null) return null;
+        if (response == null || response.ResponseData == null) return null;
         switch(response.RequestType)
         {");
         foreach (var type in requestTypes.Members.Select(member => member.Identifier.Text))
         {
-            var response = structs.FirstOrDefault(s => s.Identifier.Text == type + "Response");
+            var response = classes.FirstOrDefault(s => s.Identifier.Text == type + "Response");
             json.Append("            case RequestType.");
             json.Append(type);
             json.AppendLine(":");

@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Stops an output.
 /// </summary>
 [MessagePackObject]
-public struct StopOutput
+public class StopOutput
 {
     /// <summary>
     ///     Output name
     /// </summary>
     [JsonPropertyName("outputName")]
     [Key("outputName")]
-    public string OutputName { get; init; }
+    public string OutputName { get; init; } = null!;
 }

@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sets the volume setting of an input.
 /// </summary>
 [MessagePackObject]
-public struct SetInputVolume
+public class SetInputVolume
 {
     /// <summary>
     ///     Name of the input to get the volume of
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     <para>Volume setting in mul</para>

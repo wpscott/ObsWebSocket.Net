@@ -4,11 +4,11 @@ using MessagePack;
 namespace ObsWebSocket.Net.Requests;
 
 [MessagePackObject]
-public struct InputPropertyItem
+public class InputPropertyItem
 {
     [JsonPropertyName("itemName")]
     [Key("itemName")]
-    public string ItemName { get; init; }
+    public string ItemName { get; init; } = null!;
 
     [JsonPropertyName("itemEnabled")]
     [Key("itemEnabled")]

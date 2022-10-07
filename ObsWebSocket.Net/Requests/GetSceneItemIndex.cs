@@ -11,14 +11,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetSceneItemIndex
+public class GetSceneItemIndex
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item
@@ -32,7 +32,7 @@ public struct GetSceneItemIndex
 ///     Gets the index position of a scene item in a scene.
 /// </summary>
 [MessagePackObject]
-public struct GetSceneItemIndexResponse
+public class GetSceneItemIndexResponse
 {
     /// <summary>
     ///     Index position of the scene item

@@ -6,7 +6,7 @@ using ObsWebSocket.Net.Enums.Obs;
 namespace ObsWebSocket.Net.Internal;
 
 [MessagePackObject]
-public struct SceneItem
+public class SceneItem
 {
     [JsonPropertyName("sceneItemId")]
     [Key("sceneItemId")]
@@ -52,7 +52,7 @@ public struct SceneItem
 }
 
 [MessagePackObject]
-public struct SceneItemTransform
+public class SceneItemTransform
 {
     [JsonPropertyName("sourceWidth")]
     [Key("sourceWidth")]

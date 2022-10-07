@@ -7,19 +7,19 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets an array of all profiles
 /// </summary>
 [MessagePackObject]
-public struct GetProfileListResponse
+public class GetProfileListResponse
 {
     /// <summary>
     ///     The name of the current profile
     /// </summary>
     [JsonPropertyName("currentProfileName")]
     [Key("currentProfileName")]
-    public string CurrentProfileName { get; init; }
+    public string CurrentProfileName { get; init; } = null!;
 
     /// <summary>
     ///     Array of all available profiles
     /// </summary>
     [JsonPropertyName("profiles")]
     [Key("profiles")]
-    public IReadOnlyList<string> Profiles { get; init; }
+    public IReadOnlyList<string> Profiles { get; init; } = null!;
 }

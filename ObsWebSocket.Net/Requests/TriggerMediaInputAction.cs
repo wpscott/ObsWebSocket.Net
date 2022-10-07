@@ -8,14 +8,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     Triggers an action on a media input.
 /// </summary>
 [MessagePackObject]
-public struct TriggerMediaInputAction
+public class TriggerMediaInputAction
 {
     /// <summary>
     ///     Name of the media input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Identifier of the <see cref="ObsWebSocketMediaInputAction" /> enum

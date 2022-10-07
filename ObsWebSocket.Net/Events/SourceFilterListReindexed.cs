@@ -8,19 +8,19 @@ namespace ObsWebSocket.Net.Events;
 ///     A source's filter list has been reindexed.
 /// </summary>
 [MessagePackObject]
-public struct SourceFilterListReindexed
+public class SourceFilterListReindexed
 {
     /// <summary>
     ///     Name of the source
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Array of filter objects
     /// </summary>
     [JsonPropertyName("filters")]
     [Key("filters")]
-    public IReadOnlyList<Filter> Filters { get; init; }
+    public IReadOnlyList<Filter> Filters { get; init; } = null!;
 }

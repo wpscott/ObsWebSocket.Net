@@ -7,28 +7,28 @@ namespace ObsWebSocket.Net.Requests;
 ///     Creates a new input, adding it as a scene item to the specified scene.
 /// </summary>
 [MessagePackObject]
-public struct CreateInput
+public class CreateInput
 {
     /// <summary>
     ///     Name of the scene to add the input to as a scene item
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the new input to created
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     The kind of input to be created
     /// </summary>
     [JsonPropertyName("inputKind")]
     [Key("inputKind")]
-    public string InputKind { get; init; }
+    public string InputKind { get; init; } = null!;
 
     /// <summary>
     ///     Settings object to initialize the input with
@@ -49,7 +49,7 @@ public struct CreateInput
 ///     Creates a new input, adding it as a scene item to the specified scene.
 /// </summary>
 [MessagePackObject]
-public struct CreateInputResponse
+public class CreateInputResponse
 {
     /// <summary>
     ///     ID of the newly created scene item

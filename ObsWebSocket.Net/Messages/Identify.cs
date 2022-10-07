@@ -13,7 +13,7 @@ namespace ObsWebSocket.Net.Messages;
 ///     </para>
 /// </summary>
 [MessagePackObject]
-public struct Identify
+public class Identify
 {
     /// <summary>
     ///     <see cref="RpcVersion" /> is the version number that the client would like the obs-websocket server

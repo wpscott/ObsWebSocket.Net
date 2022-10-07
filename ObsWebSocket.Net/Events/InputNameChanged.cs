@@ -7,19 +7,19 @@ namespace ObsWebSocket.Net.Events;
 ///     The name of an input has changed.
 /// </summary>
 [MessagePackObject]
-public struct InputNameChanged
+public class InputNameChanged
 {
     /// <summary>
     ///     Old name of the input
     /// </summary>
     [JsonPropertyName("oldInputName")]
     [Key("oldInputName")]
-    public string OldInputName { get; init; }
+    public string OldInputName { get; init; } = null!;
 
     /// <summary>
     ///     New name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 }

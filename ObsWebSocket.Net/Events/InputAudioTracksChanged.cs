@@ -7,19 +7,19 @@ namespace ObsWebSocket.Net.Events;
 ///     The audio tracks of an input have changed.
 /// </summary>
 [MessagePackObject]
-public struct InputAudioTracksChanged
+public class InputAudioTracksChanged
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Object of audio tracks along with their associated enable states
     /// </summary>
     [JsonPropertyName("inputAudioTracks")]
     [Key("inputAudioTracks")]
-    public IReadOnlyDictionary<string, bool> InputAudioTracks { get; init; }
+    public IReadOnlyDictionary<string, bool> InputAudioTracks { get; init; } = null!;
 }

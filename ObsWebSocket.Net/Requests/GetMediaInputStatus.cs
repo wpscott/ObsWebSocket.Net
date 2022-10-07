@@ -9,21 +9,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the status of a media input.
 /// </summary>
 [MessagePackObject]
-public struct GetMediaInputStatus
+public class GetMediaInputStatus
 {
     /// <summary>
     ///     Name of the media input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the status of a media input.
 /// </summary>
 [MessagePackObject]
-public struct GetMediaInputStatusResponse
+public class GetMediaInputStatusResponse
 {
     /// <summary>
     ///     State of the media input

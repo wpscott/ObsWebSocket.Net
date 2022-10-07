@@ -7,21 +7,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the audio mute state of an input.
 /// </summary>
 [MessagePackObject]
-public struct GetInputMute
+public class GetInputMute
 {
     /// <summary>
     ///     Name of input to get the mute state of
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the audio mute state of an input.
 /// </summary>
 [MessagePackObject]
-public struct GetInputMuteResponse
+public class GetInputMuteResponse
 {
     /// <summary>
     ///     Whether the input is muted

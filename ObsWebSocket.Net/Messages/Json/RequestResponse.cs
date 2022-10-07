@@ -9,13 +9,14 @@ namespace ObsWebSocket.Net.Messages.Json;
 ///     <para>Sent to: Identified client which made the request</para>
 ///     <para>Description: obs-websocket is responding to a request coming from a client.</para>
 /// </summary>
-public struct RequestResponse
+public class RequestResponse
 {
     [JsonPropertyName("requestType")] public RequestType RequestType { get; init; }
 
-    [JsonPropertyName("requestId")] public string RequestId { get; init; }
+    [JsonPropertyName("requestId")] public string RequestId { get; init; } = null!;
 
-    [JsonPropertyName("requestStatus")] public RequestResponseStatus RequestRequestResponseStatus { get; init; }
+    [JsonPropertyName("requestStatus")]
+    public RequestResponseStatus RequestRequestResponseStatus { get; init; } = null!;
 
     [JsonPropertyName("responseData")] public JsonDocument? ResponseData { get; init; }
 }

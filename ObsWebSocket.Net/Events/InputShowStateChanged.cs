@@ -8,14 +8,14 @@ namespace ObsWebSocket.Net.Events;
 ///     <para>When an input is showing, it means it's being shown by the preview or a dialog.</para>
 /// </summary>
 [MessagePackObject]
-public struct InputShowStateChanged
+public class InputShowStateChanged
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Whether the input is showing

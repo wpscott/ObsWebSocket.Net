@@ -8,14 +8,14 @@ namespace ObsWebSocket.Net.Events;
 ///     The transform/crop of a scene item has changed.
 /// </summary>
 [MessagePackObject]
-public struct SceneItemTransformChanged
+public class SceneItemTransformChanged
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item
@@ -29,5 +29,5 @@ public struct SceneItemTransformChanged
     /// </summary>
     [JsonPropertyName("sceneItemTransform")]
     [Key("sceneItemTransform")]
-    public SceneItemTransform SceneItemTransform { get; init; }
+    public SceneItemTransform SceneItemTransform { get; init; } = null!;
 }

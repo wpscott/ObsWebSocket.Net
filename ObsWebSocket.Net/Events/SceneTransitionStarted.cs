@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     A scene transition has started.
 /// </summary>
 [MessagePackObject]
-public struct SceneTransitionStarted
+public class SceneTransitionStarted
 {
     /// <summary>
     ///     Scene transition name
     /// </summary>
     [JsonPropertyName("transitionName")]
     [Key("transitionName")]
-    public string TransitionName { get; init; }
+    public string TransitionName { get; init; } = null!;
 }

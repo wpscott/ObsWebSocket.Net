@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the status of the virtualcam output.
 /// </summary>
 [MessagePackObject]
-public struct GetVirtualCamStatusResponse
+public class GetVirtualCamStatusResponse
 {
     /// <summary>
     ///     Whether the output is active

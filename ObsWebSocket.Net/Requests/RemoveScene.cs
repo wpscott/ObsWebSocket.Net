@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Removes a scene from OBS.
 /// </summary>
 [MessagePackObject]
-public struct RemoveScene
+public class RemoveScene
 {
     /// <summary>
     ///     Name of the scene to remove
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 }

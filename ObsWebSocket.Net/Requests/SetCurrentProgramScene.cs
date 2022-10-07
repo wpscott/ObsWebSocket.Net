@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sets the current program scene.
 /// </summary>
 [MessagePackObject]
-public struct SetCurrentProgramScene
+public class SetCurrentProgramScene
 {
     /// <summary>
     ///     Scene to set as the current program scene
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 }

@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Events;
 ///     An input's mute state has changed.
 /// </summary>
 [MessagePackObject]
-public struct InputMuteStateChanged
+public class InputMuteStateChanged
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Whether the input is muted

@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the scene transition overridden for a scene.
 /// </summary>
 [MessagePackObject]
-public struct SetSceneSceneTransitionOverride
+public class SetSceneSceneTransitionOverride
 {
     /// <summary>
     ///     Name of the scene
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Name of the scene transition to use as override. Specify <see langword="null" /> to remove

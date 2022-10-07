@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Saves the contents of the replay buffer output.
 /// </summary>
 [MessagePackObject]
-public struct SaveReplayBuffer
+public class SaveReplayBuffer
 {
 }

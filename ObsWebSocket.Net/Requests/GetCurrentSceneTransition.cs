@@ -7,21 +7,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets information about the current scene transition.
 /// </summary>
 [MessagePackObject]
-public struct GetCurrentSceneTransition
+public class GetCurrentSceneTransition
 {
     /// <summary>
     ///     Name of the transition
     /// </summary>
     [JsonPropertyName("transitionName")]
     [Key("transitionName")]
-    public string TransitionName { get; init; }
+    public string TransitionName { get; init; } = null!;
 
     /// <summary>
     ///     Kind of the transition
     /// </summary>
     [JsonPropertyName("transitionKind")]
     [Key("transitionKind")]
-    public string TransitionKind { get; init; }
+    public string TransitionKind { get; init; } = null!;
 
     /// <summary>
     ///     Whether the transition uses a fixed (unconfigurable) duration

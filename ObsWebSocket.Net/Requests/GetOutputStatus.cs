@@ -7,21 +7,21 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the status of an output.
 /// </summary>
 [MessagePackObject]
-public struct GetOutputStatus
+public class GetOutputStatus
 {
     /// <summary>
     ///     Output name
     /// </summary>
     [JsonPropertyName("outputName")]
     [Key("outputName")]
-    public string OutputName { get; init; }
+    public string OutputName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets the status of an output.
 /// </summary>
 [MessagePackObject]
-public struct GetOutputStatusResponse
+public class GetOutputStatusResponse
 {
     /// <summary>
     ///     Whether the output is active
@@ -42,7 +42,7 @@ public struct GetOutputStatusResponse
     /// </summary>
     [JsonPropertyName("outputTimecode")]
     [Key("outputTimecode")]
-    public string OutputTimecode { get; init; }
+    public string OutputTimecode { get; init; } = null!;
 
     /// <summary>
     ///     Current duration in milliseconds for the output

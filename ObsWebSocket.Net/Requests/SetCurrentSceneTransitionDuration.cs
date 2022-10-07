@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sets the duration of the current scene transition, if it is not fixed.
 /// </summary>
 [MessagePackObject]
-public struct SetCurrentSceneTransitionDuration
+public class SetCurrentSceneTransitionDuration
 {
     /// <summary>
     ///     <para>Duration in milliseconds</para>

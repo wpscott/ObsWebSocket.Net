@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Starts the virtualcam output.
 /// </summary>
 [MessagePackObject]
-public struct StartVirtualCam
+public class StartVirtualCam
 {
 }

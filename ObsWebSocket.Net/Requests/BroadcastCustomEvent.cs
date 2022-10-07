@@ -8,12 +8,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     subscribed.
 /// </summary>
 [MessagePackObject]
-public struct BroadcastCustomEvent
+public class BroadcastCustomEvent
 {
     /// <summary>
     ///     Data payload to emit to all receivers
     /// </summary>
     [JsonPropertyName("eventData")]
     [Key("eventData")]
-    public IDictionary<string, object> EventData { get; init; }
+    public IDictionary<string, object> EventData { get; init; } = null!;
 }

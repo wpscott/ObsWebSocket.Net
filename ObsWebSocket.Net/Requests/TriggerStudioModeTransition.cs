@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Triggers the current scene transition. Same functionality as the <c>Transition</c> button in studio mode.
 /// </summary>
 [MessagePackObject]
-public struct TriggerStudioModeTransition
+public class TriggerStudioModeTransition
 {
 }

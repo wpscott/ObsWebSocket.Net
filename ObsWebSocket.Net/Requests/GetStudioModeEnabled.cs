@@ -4,7 +4,7 @@ using MessagePack;
 namespace ObsWebSocket.Net.Requests;
 
 [MessagePackObject]
-public struct GetStudioModeEnabledResponse
+public class GetStudioModeEnabledResponse
 {
     [JsonPropertyName("studioModeEnabled")]
     [Key("studioModeEnabled")]

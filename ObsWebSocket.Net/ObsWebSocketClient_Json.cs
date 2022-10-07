@@ -39,13 +39,13 @@ public sealed partial class ObsWebSocketClient
 
                 var message = JsonSerializer.Deserialize<Message>(buffer.Span[..result.Count]);
 
-                switch (message.OpCode)
+                switch (message?.OpCode)
                 {
                     case OpCode.Hello:
                         OnConnected?.Invoke();
 
                         var hello = message.Data.Deserialize<Hello>();
-                        Identify(hello.Authentication, eventSubscriptions);
+                        Identify(hello?.Authentication, eventSubscriptions);
                         break;
                     case OpCode.Identified:
                         OnIdentified?.Invoke();
@@ -57,16 +57,19 @@ public sealed partial class ObsWebSocketClient
                     case OpCode.RequestResponse:
                         var response = message.Data.Deserialize<RequestResponse>();
                         var data = DeserializeRequestResponse(response);
-                        if (TryRemoveInvocation(response.RequestId, out InvocationRequest irq))
+                        if (TryRemoveInvocation(response?.RequestId, out InvocationRequest? irq))
                             DispatchInvocationCompletion(data, irq);
 
                         break;
                     case OpCode.RequestBatchResponse:
                         var batchResponse = message.Data.Deserialize<RequestBatchResponse>();
-                        var results = batchResponse.Results.Select(re => DeserializeRequestResponse(re)).ToList();
-                        if (TryRemoveInvocation(batchResponse.RequestId, out InvocationBatchRequest ibrq))
-                            DispatchInvocationCompletion(results, ibrq);
+                        var results = new List<object?>();
+                        if (batchResponse != null)
+                            results = batchResponse.Results.Select(re => DeserializeRequestResponse(re)).ToList();
 
+                        if (TryRemoveInvocation(batchResponse?.RequestId,
+                                out InvocationBatchRequest? ibrq))
+                            DispatchInvocationCompletion(results, ibrq);
                         break;
                 }
             }

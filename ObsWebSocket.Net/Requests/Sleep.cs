@@ -10,7 +10,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     <see cref="RequestBatchExecutionType.SerialFrame" />.
 /// </summary>
 [MessagePackObject]
-public struct Sleep
+public class Sleep
 {
     /// <summary>
     ///     <para>

@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     The current program scene has changed.
 /// </summary>
 [MessagePackObject]
-public struct CurrentProgramSceneChanged
+public class CurrentProgramSceneChanged
 {
     /// <summary>
     ///     Name of the scene that was switched to
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 }

@@ -8,14 +8,14 @@ namespace ObsWebSocket.Net.Events;
 ///     <para>When an input is active, it means it's being shown by the program feed.</para>
 /// </summary>
 [MessagePackObject]
-public struct InputActiveStateChanged
+public class InputActiveStateChanged
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     Whether the input is active

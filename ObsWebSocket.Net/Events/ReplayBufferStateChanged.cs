@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Events;
 ///     The state of the replay buffer output has changed.
 /// </summary>
 [MessagePackObject]
-public struct ReplayBufferStateChanged
+public class ReplayBufferStateChanged
 {
     /// <summary>
     ///     Whether the output is active
@@ -21,5 +21,5 @@ public struct ReplayBufferStateChanged
     /// </summary>
     [JsonPropertyName("outputState")]
     [Key("outputState")]
-    public string OutputState { get; init; }
+    public string OutputState { get; init; } = null!;
 }

@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the filename of the last replay buffer save file.
 /// </summary>
 [MessagePackObject]
-public struct GetLastReplayBufferReplayResponse
+public class GetLastReplayBufferReplayResponse
 {
     /// <summary>
     ///     File path
     /// </summary>
     [JsonPropertyName("savedReplayPath")]
     [Key("savedReplayPath")]
-    public string SavedReplayPath { get; init; }
+    public string SavedReplayPath { get; init; } = null!;
 }

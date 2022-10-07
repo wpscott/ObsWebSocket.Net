@@ -13,7 +13,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct OpenVideoMixProjector
+public class OpenVideoMixProjector
 {
     /// <summary>
     ///     Type of mix to open

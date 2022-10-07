@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Events;
 ///     Studio mode has been enabled or disabled.
 /// </summary>
 [MessagePackObject]
-public struct StudioModeStateChanged
+public class StudioModeStateChanged
 {
     /// <summary>
     ///     True == Enabled, False == Disabled

@@ -8,14 +8,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     <remarks>Scenes and Groups</remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetSceneItemEnabled
+public class GetSceneItemEnabled
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item
@@ -29,7 +29,7 @@ public struct GetSceneItemEnabled
 ///     Gets the enable state of a scene item.
 /// </summary>
 [MessagePackObject]
-public struct GetSceneItemEnabledResponse
+public class GetSceneItemEnabledResponse
 {
     /// <summary>
     ///     Whether the scene item is enabled. <see langword="true" /> for enabled, <see langword="false" /> for disabled

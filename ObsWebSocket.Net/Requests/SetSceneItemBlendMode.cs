@@ -10,14 +10,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     <remarks>Scenes and Groups</remarks>
 /// </summary>
 [MessagePackObject]
-public struct SetSceneItemBlendMode
+public class SetSceneItemBlendMode
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item

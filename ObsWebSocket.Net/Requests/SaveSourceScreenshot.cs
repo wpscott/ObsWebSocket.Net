@@ -13,28 +13,28 @@ namespace ObsWebSocket.Net.Requests;
 ///     </remarks>
 /// </summary>
 [MessagePackObject]
-public struct SaveSourceScreenshot
+public class SaveSourceScreenshot
 {
     /// <summary>
     ///     Name of the source to take a screenshot of
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 
     /// <summary>
     ///     Image compression format to use. Use <see cref="ObsWebSocketClient.GetVersion" /> to get compatible image formats
     /// </summary>
     [JsonPropertyName("imageFormat")]
     [Key("imageFormat")]
-    public string ImageFormat { get; init; }
+    public string ImageFormat { get; init; } = null!;
 
     /// <summary>
     ///     Path to save the screenshot file to. E.g. <c>C:\Users\user\Desktop\screenshot.png</c>
     /// </summary>
     [JsonPropertyName("imageFilePath")]
     [Key("imageFilePath")]
-    public string ImageFilePath { get; init; }
+    public string ImageFilePath { get; init; } = null!;
 
     /// <summary>
     ///     <para>Width to scale the screenshot to</para>
@@ -65,12 +65,12 @@ public struct SaveSourceScreenshot
 ///     Saves a screenshot of a source to the filesystem.
 /// </summary>
 [MessagePackObject]
-public struct SaveSourceScreenshotResponse
+public class SaveSourceScreenshotResponse
 {
     /// <summary>
     ///     Base64-encoded screenshot
     /// </summary>
     [JsonPropertyName("imageData")]
     [Key("imageData")]
-    public string ImageData { get; init; }
+    public string ImageData { get; init; } = null!;
 }

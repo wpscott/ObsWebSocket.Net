@@ -8,12 +8,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     <remarks>Only available when studio mode is enabled.</remarks>
 /// </summary>
 [MessagePackObject]
-public struct GetCurrentPreviewSceneResponse
+public class GetCurrentPreviewSceneResponse
 {
     /// <summary>
     ///     Current preview scene
     /// </summary>
     [JsonPropertyName("currentPreviewSceneName")]
     [Key("currentPreviewSceneName")]
-    public string CurrentPreviewSceneName { get; init; }
+    public string CurrentPreviewSceneName { get; init; } = null!;
 }

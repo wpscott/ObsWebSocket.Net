@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Toggles the status of the stream output.
 /// </summary>
 [MessagePackObject]
-public struct ToggleStreamResponse
+public class ToggleStreamResponse
 {
     /// <summary>
     ///     New state of the stream output

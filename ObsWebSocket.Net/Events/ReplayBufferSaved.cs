@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     The replay buffer has been saved.
 /// </summary>
 [MessagePackObject]
-public struct ReplayBufferSaved
+public class ReplayBufferSaved
 {
     /// <summary>
     ///     Path of the saved replay file
     /// </summary>
     [JsonPropertyName("savedReplayPath")]
     [Key("savedReplayPath")]
-    public string SavedReplayPath { get; init; }
+    public string SavedReplayPath { get; init; } = null!;
 }

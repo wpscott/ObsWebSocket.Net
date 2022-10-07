@@ -9,7 +9,7 @@ namespace ObsWebSocket.Net.Messages.MsgPack;
 ///     <para>Description: An event coming from OBS has occured. Eg scene switched, source muted.</para>
 /// </summary>
 [MessagePackObject]
-public struct Event
+public class Event
 {
     [Key("eventType")]
     [MessagePackFormatter(typeof(EnumFormatter<EventType>))]
@@ -22,5 +22,5 @@ public struct Event
     [Key("eventIntent")]
     public int EventIntent { get; init; }
 
-    [Key("eventData")] public object EventData { get; init; }
+    [Key("eventData")] public object EventData { get; init; } = null!;
 }

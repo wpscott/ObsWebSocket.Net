@@ -14,11 +14,11 @@ namespace ObsWebSocket.Net.Messages;
 ///     </para>
 /// </summary>
 [MessagePackObject]
-public struct Hello
+public class Hello
 {
     [JsonPropertyName("obsWebSocketVersion")]
     [Key("obsWebSocketVersion")]
-    public string ObsWebSocketVersion { get; init; }
+    public string ObsWebSocketVersion { get; init; } = null!;
 
     /// <summary>
     ///     <see cref="RpcVersion" /> is a version number which gets incremented on each breaking change to the
@@ -48,15 +48,15 @@ public struct Hello
 ///     <para>Generate a binary SHA256 hash of that result and base64 encode it. You now have your authentication string.</para>
 /// </summary>
 [MessagePackObject]
-public struct HelloAuthentication
+public class HelloAuthentication
 {
     [JsonPropertyName("challenge")]
     [Key("challenge")]
-    public string Challenge { get; init; }
+    public string Challenge { get; init; } = null!;
 
     [JsonPropertyName("salt")]
     [Key("salt")]
-    public string Salt { get; init; }
+    public string Salt { get; init; } = null!;
 
     public string? Authenticate(in string? password)
     {

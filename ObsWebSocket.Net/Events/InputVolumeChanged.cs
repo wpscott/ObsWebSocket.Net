@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Events;
 ///     An input's volume level has changed.
 /// </summary>
 [MessagePackObject]
-public struct InputVolumeChanged
+public class InputVolumeChanged
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     New volume level in multimap

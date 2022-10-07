@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Starts the record output.
 /// </summary>
 [MessagePackObject]
-public struct StartRecord
+public class StartRecord
 {
 }

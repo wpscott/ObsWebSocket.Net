@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Requests;
 ///     Duplicates a scene item, copying all transform and crop info.
 /// </summary>
 [MessagePackObject]
-public struct DuplicateSceneItem
+public class DuplicateSceneItem
 {
     /// <summary>
     ///     Name of the scene the item is in
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Numeric ID of the scene item
@@ -35,7 +35,7 @@ public struct DuplicateSceneItem
 /// <summary>
 /// </summary>
 [MessagePackObject]
-public struct DuplicateSceneItemResponse
+public class DuplicateSceneItemResponse
 {
     /// <summary>
     ///     Numeric ID of the duplicated scene item

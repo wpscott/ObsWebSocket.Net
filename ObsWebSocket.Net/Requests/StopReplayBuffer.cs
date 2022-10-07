@@ -6,6 +6,6 @@ namespace ObsWebSocket.Net.Requests;
 ///     Stops the replay buffer output.
 /// </summary>
 [MessagePackObject]
-public struct StopReplayBuffer
+public class StopReplayBuffer
 {
 }

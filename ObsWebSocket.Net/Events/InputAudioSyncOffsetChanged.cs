@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Events;
 ///     The sync offset of an input has changed.
 /// </summary>
 [MessagePackObject]
-public struct InputAudioSyncOffsetChanged
+public class InputAudioSyncOffsetChanged
 {
     /// <summary>
     ///     Name of the input
     /// </summary>
     [JsonPropertyName("inputName")]
     [Key("inputName")]
-    public string InputName { get; init; }
+    public string InputName { get; init; } = null!;
 
     /// <summary>
     ///     New sync offset in milliseconds

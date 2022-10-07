@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the current directory that the record output is set to.
 /// </summary>
 [MessagePackObject]
-public struct GetRecordDirectoryResponse
+public class GetRecordDirectoryResponse
 {
     /// <summary>
     ///     Output directory
     /// </summary>
     [JsonPropertyName("recordDirectory")]
     [Key("recordDirectory")]
-    public string RecordDirectory { get; init; }
+    public string RecordDirectory { get; init; } = null!;
 }

@@ -7,7 +7,7 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets the cursor position of the current scene transition.
 /// </summary>
 [MessagePackObject]
-public struct GetCurrentSceneTransitionCursorResponse
+public class GetCurrentSceneTransitionCursorResponse
 {
     /// <summary>
     ///     Cursor position, between 0.0 and 1.0

@@ -7,19 +7,19 @@ namespace ObsWebSocket.Net.Requests;
 ///     Sets the settings of an output.
 /// </summary>
 [MessagePackObject]
-public struct SetOutputSettings
+public class SetOutputSettings
 {
     /// <summary>
     ///     Output name
     /// </summary>
     [JsonPropertyName("outputName")]
     [Key("outputName")]
-    public string OutputName { get; init; }
+    public string OutputName { get; init; } = null!;
 
     /// <summary>
     ///     Output settings
     /// </summary>
     [JsonPropertyName("outputSettings")]
     [Key("outputSettings")]
-    public IDictionary<string, object> OutputSettings { get; init; }
+    public IDictionary<string, object> OutputSettings { get; init; } = null!;
 }

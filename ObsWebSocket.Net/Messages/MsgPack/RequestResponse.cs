@@ -9,15 +9,15 @@ namespace ObsWebSocket.Net.Messages.MsgPack;
 ///     <para>Description: obs-websocket is responding to a request coming from a client.</para>
 /// </summary>
 [MessagePackObject]
-public struct RequestResponse
+public class RequestResponse
 {
     [Key("requestType")]
     [MessagePackFormatter(typeof(EnumFormatter<RequestType>))]
     public RequestType RequestType { get; init; }
 
-    [Key("requestId")] public string RequestId { get; init; }
+    [Key("requestId")] public string RequestId { get; init; } = null!;
 
-    [Key("requestStatus")] public RequestResponseStatus RequestStatus { get; init; }
+    [Key("requestStatus")] public RequestResponseStatus RequestStatus { get; init; } = null!;
 
     [Key("responseData")] public object? ResponseData { get; init; }
 }

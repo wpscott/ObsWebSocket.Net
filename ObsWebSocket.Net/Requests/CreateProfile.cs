@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Requests;
 ///     Creates a new profile, switching to it in the process
 /// </summary>
 [MessagePackObject]
-public struct CreateProfile
+public class CreateProfile
 {
     /// <summary>
     ///     Name for the new profile
     /// </summary>
     [JsonPropertyName("profileName")]
     [Key("profileName")]
-    public string ProfileName { get; init; }
+    public string ProfileName { get; init; } = null!;
 }

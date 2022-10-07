@@ -1,14 +1,14 @@
-using MessagePack;
 using System.Text.Json.Serialization;
+using MessagePack;
 
 namespace ObsWebSocket.Net.Requests;
 
-[MessagePackObject()]
-public struct GetSceneItemPrivateSettings
+[MessagePackObject]
+public class GetSceneItemPrivateSettings
 {
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
 
     [JsonPropertyName("sceneItemId")]
@@ -16,10 +16,10 @@ public struct GetSceneItemPrivateSettings
     public ulong SceneItemId { get; init; }
 }
 
-[MessagePackObject()]
-public struct GetSceneItemPrivateSettingsResponse
+[MessagePackObject]
+public class GetSceneItemPrivateSettingsResponse
 {
     [JsonPropertyName("sceneItemSettings")]
     [Key("sceneItemSettings")]
-    public IReadOnlyDictionary<string, object> SceneItemSettings { get; init; }
+    public IReadOnlyDictionary<string, object> SceneItemSettings { get; init; } = null!;
 }

@@ -7,12 +7,12 @@ namespace ObsWebSocket.Net.Events;
 ///     The current scene transition has changed.
 /// </summary>
 [MessagePackObject]
-public struct CurrentSceneTransitionChanged
+public class CurrentSceneTransitionChanged
 {
     /// <summary>
     ///     Name of the new transition
     /// </summary>
     [JsonPropertyName("transitionName")]
     [Key("transitionName")]
-    public string TransitionName { get; init; }
+    public string TransitionName { get; init; } = null!;
 }

@@ -8,26 +8,26 @@ namespace ObsWebSocket.Net.Requests;
 ///     Gets an array of all of a source's filters.
 /// </summary>
 [MessagePackObject]
-public struct GetSourceFilterList
+public class GetSourceFilterList
 {
     /// <summary>
     ///     Name of the source
     /// </summary>
     [JsonPropertyName("sourceName")]
     [Key("sourceName")]
-    public string SourceName { get; init; }
+    public string SourceName { get; init; } = null!;
 }
 
 /// <summary>
 ///     Gets an array of all of a source's filters.
 /// </summary>
 [MessagePackObject]
-public struct GetSourceFilterListResponse
+public class GetSourceFilterListResponse
 {
     /// <summary>
     ///     Array of filters
     /// </summary>
     [JsonPropertyName("filters")]
     [Key("filters")]
-    public IReadOnlyList<Filter> Filters { get; init; }
+    public IReadOnlyList<Filter> Filters { get; init; } = null!;
 }

@@ -13,12 +13,12 @@ namespace ObsWebSocket.Net.Events;
 ///     <remarks>Note: Appears to be called by every transition, regardless of relevance.</remarks>
 /// </summary>
 [MessagePackObject]
-public struct SceneTransitionVideoEnded
+public class SceneTransitionVideoEnded
 {
     /// <summary>
     ///     Scene transition name
     /// </summary>
     [JsonPropertyName("transitionName")]
     [Key("transitionName")]
-    public string TransitionName { get; init; }
+    public string TransitionName { get; init; } = null!;
 }

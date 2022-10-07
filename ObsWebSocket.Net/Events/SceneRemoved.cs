@@ -7,14 +7,14 @@ namespace ObsWebSocket.Net.Events;
 ///     A scene has been removed.
 /// </summary>
 [MessagePackObject]
-public struct SceneRemoved
+public class SceneRemoved
 {
     /// <summary>
     ///     Name of the new scene
     /// </summary>
     [JsonPropertyName("sceneName")]
     [Key("sceneName")]
-    public string SceneName { get; init; }
+    public string SceneName { get; init; } = null!;
 
     /// <summary>
     ///     Whether the new scene is a group
