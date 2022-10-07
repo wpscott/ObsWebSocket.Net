@@ -3,6 +3,10 @@ using System.Text.Json;
 using MessagePack;
 using ObsWebSocket.Net.Enums;
 using ObsWebSocket.Net.Messages;
+using JsonEvent = ObsWebSocket.Net.Messages.Json.Event;
+using MsgPackEvent = ObsWebSocket.Net.Messages.MsgPack.Event;
+using JsonRequestResponse = ObsWebSocket.Net.Messages.Json.RequestResponse;
+using MsgPackRequestResponse = ObsWebSocket.Net.Messages.MsgPack.RequestResponse;
 
 namespace ObsWebSocket.Net;
 
@@ -31,7 +35,8 @@ public sealed partial class ObsWebSocketClient
     }
 
     public ObsWebSocketClient(in string address, in int port, in string? password = null, in bool useMsgPack = false,
-        in bool autoReconnect = true)
+        in bool autoReconnect = true,
+        in int autoReconnectWaitSeconds = ObsWebSocketClientOptions.DefaultAutoReconnectWaitSeconds)
     {
         _options = new ObsWebSocketClientOptions
         {
@@ -39,7 +44,8 @@ public sealed partial class ObsWebSocketClient
             Port = port,
             Password = password,
             UseMsgPack = useMsgPack,
-            AutoReconnect = autoReconnect
+            AutoReconnect = autoReconnect,
+            AutoReconnectWaitSeconds = autoReconnectWaitSeconds
         };
     }
 
@@ -231,9 +237,9 @@ public sealed partial class ObsWebSocketClient
         Send(response);
     }
 
-    private partial void HandleEvents(in Messages.Json.Event evt);
-    private partial void HandleEvents(in Messages.MsgPack.Event evt);
+    private partial void HandleEvents(in JsonEvent evt);
+    private partial void HandleEvents(in MsgPackEvent evt);
 
-    private static partial object? DeserializeRequestResponse(in Messages.Json.RequestResponse response);
-    private static partial object? DeserializeRequestResponse(in Messages.MsgPack.RequestResponse response);
+    private static partial object? DeserializeRequestResponse(in JsonRequestResponse response);
+    private static partial object? DeserializeRequestResponse(in MsgPackRequestResponse response);
 }
