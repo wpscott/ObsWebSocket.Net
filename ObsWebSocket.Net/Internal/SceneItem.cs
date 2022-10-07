@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using MessagePack;
+using ObsWebSocket.Net.Enums;
 using ObsWebSocket.Net.Enums.Obs;
 
 namespace ObsWebSocket.Net.Internal;
@@ -29,6 +30,7 @@ public struct SceneItem
 
     [JsonPropertyName("sceneItemBlendMode")]
     [Key("sceneItemBlendMode")]
+    [MessagePackFormatter(typeof(NullableEnumFormatter<ObsBlendingType>))]
     public ObsBlendingType? SceneItemBlendMode { get; init; }
 
     [JsonPropertyName("sourceName")]
@@ -37,6 +39,7 @@ public struct SceneItem
 
     [JsonPropertyName("sourceType")]
     [Key("sourceType")]
+    [MessagePackFormatter(typeof(NullableEnumFormatter<ObsSourceType>))]
     public ObsSourceType? SourceType { get; init; }
 
     [JsonPropertyName("inputKind")]
@@ -93,6 +96,7 @@ public struct SceneItemTransform
 
     [JsonPropertyName("boundsType")]
     [Key("boundsType")]
+    [MessagePackFormatter(typeof(EnumFormatter<ObsBoundsType>))]
     public ObsBoundsType BoundsType { get; init; }
 
     [JsonPropertyName("boundsAlignment")]

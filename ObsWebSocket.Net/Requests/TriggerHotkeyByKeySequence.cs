@@ -16,7 +16,7 @@ public struct TriggerHotkeyByKeySequence
     /// </summary>
     [JsonPropertyName("keyId")]
     [Key("keyId")]
-    [MessagePackFormatter(typeof(EnumFormatter<ObsHotKeys>))]
+    [MessagePackFormatter(typeof(NullableEnumFormatter<ObsHotKeys>))]
     public ObsHotKeys? KeyId { get; init; }
 
     /// <summary>
