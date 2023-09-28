@@ -17,6 +17,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <AdditionalFiles Include="protocol.json">
+	  </AdditionalFiles>
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
@@ -32,8 +37,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ObsWebSocket.Net.Analyzer\ObsWebSocket.Net.Analyzer.csproj" OutputItemType="Analyzer"
-		                  ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\ObsWebSocket.Net.Analyzer\ObsWebSocket.Net.Analyzer.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 </Project>
