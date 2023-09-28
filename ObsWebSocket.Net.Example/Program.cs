@@ -1,6 +1,4 @@
 ﻿using ObsWebSocket.Net;
-using ObsWebSocket.Net.Enums;
-using ObsWebSocket.Net.Messages;
 
 using EventWaitHandle ewh = new(false, EventResetMode.ManualReset);
 
@@ -13,20 +11,68 @@ var client = args.Length switch
     _ => throw new ArgumentException("Invalid argument numbers")
 };
 
+client.OnConnectionFailed += (e) =>
+{
+    Console.WriteLine(e);
+    ewh.Set();
+};
+
 client.OnClosed += () => { ewh.Set(); };
 
 client.OnIdentified += async () =>
 {
-    var version = client.GetVersion();
-    var results = await client.Invoke(requests: new[]
-    {
-        new Request { RequestType = RequestType.GetVersion }, new Request { RequestType = RequestType.GetStats }
-    });
+    //var version = await client.GetVersion();
+    //var results = await client.Invoke(requests: new[]
+    //{
+    //    new Request { RequestType = RequestType.GetVersion }, new Request { RequestType = RequestType.GetStats }
+    //});
+    //var settings = await client.GetStreamServiceSettings();
+
+    var scenes = await client.GetSceneList();
+    if (scenes == null) return;
+    var input = await client.CreateInput(
+        scenes.CurrentProgramSceneName,
+        "ObsWebSocket.Net.Example",
+        "browser_source",
+        new Dictionary<string, object>
+        {
+            { "url", "https://github.com" }
+        },
+        true);
+    //var items = await client.GetSceneItemList(scenes.CurrentProgramSceneName);
+    //var result = await client.Invoke(requests: new[]
+    //{
+    //    new Request
+    //    {
+    //        RequestType = RequestType.GetInputDefaultSettings,
+    //        RequestData = new GetInputDefaultSettings { InputKind = "text_gdiplus_v2" }
+    //    },
+    //    new Request
+    //    {
+    //        RequestType = RequestType.GetInputDefaultSettings,
+    //        RequestData = new GetInputDefaultSettings { InputKind = "image_source" }
+    //    },
+    //    new Request
+    //    {
+    //        RequestType = RequestType.GetInputDefaultSettings,
+    //        RequestData = new GetInputDefaultSettings { InputKind = "ffmpeg_source" }
+    //    },
+    //    new Request
+    //    {
+    //        RequestType = RequestType.GetInputDefaultSettings,
+    //        RequestData = new GetInputDefaultSettings { InputKind = "browser_source" }
+    //    },
+    //});
+    //result = await client.Invoke(requests: items.SceneItems.Select(item => new Request
+    //{
+    //    RequestType = RequestType.GetInputSettings,
+    //    RequestData = new GetInputSettings { InputName = item.SourceName }
+    //}).ToArray());
 };
 
 client.OnSceneItemSelected += selected =>
 {
-    Console.WriteLine($"{selected.SceneItemId} - {selected.SceneName} selected");
+    Console.WriteLine($"{selected?.SceneItemId} - {selected?.SceneName} selected");
 };
 
 client.Connect();
