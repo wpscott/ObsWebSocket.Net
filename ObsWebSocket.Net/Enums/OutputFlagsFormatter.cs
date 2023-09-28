@@ -24,7 +24,7 @@ public class OutputFlagsFormatter : IMessagePackFormatter<IReadOnlyDictionary<Ob
         Dictionary<ObsOutputFlags, bool> result = new();
         var count = reader.ReadMapHeader();
         for (var i = 0; i < count; i++)
-            result.Add(Enum.Parse<ObsOutputFlags>(reader.ReadString()), reader.ReadBoolean());
+            result.Add(Enum.Parse<ObsOutputFlags>(reader.ReadString() ?? string.Empty), reader.ReadBoolean());
 
         return new ReadOnlyDictionary<ObsOutputFlags, bool>(result);
     }

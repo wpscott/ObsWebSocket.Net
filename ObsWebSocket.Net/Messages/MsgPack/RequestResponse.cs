@@ -1,5 +1,6 @@
 ﻿using MessagePack;
 using ObsWebSocket.Net.Enums;
+using ObsWebSocket.Net.Protocol.Enums;
 
 namespace ObsWebSocket.Net.Messages.MsgPack;
 

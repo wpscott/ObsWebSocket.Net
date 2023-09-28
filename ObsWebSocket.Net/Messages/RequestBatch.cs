@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using MessagePack;
-using ObsWebSocket.Net.Enums;
 using ObsWebSocket.Net.Messages.Json;
+using ObsWebSocket.Net.Protocol.Enums;
 
 namespace ObsWebSocket.Net.Messages;
 

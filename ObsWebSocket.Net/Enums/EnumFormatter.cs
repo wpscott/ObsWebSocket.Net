@@ -12,7 +12,7 @@ public class EnumFormatter<T> : IMessagePackFormatter<T> where T : struct, Enum
 
     public T Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
     {
-        return Enum.Parse<T>(reader.ReadString());
+        return Enum.Parse<T>(reader.ReadString() ?? string.Empty);
     }
 }
 

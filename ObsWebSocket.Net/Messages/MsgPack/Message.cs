@@ -1,5 +1,5 @@
 ﻿using MessagePack;
-using ObsWebSocket.Net.Enums;
+using ObsWebSocket.Net.Protocol.Enums;
 
 namespace ObsWebSocket.Net.Messages.MsgPack;
 
@@ -10,8 +10,8 @@ namespace ObsWebSocket.Net.Messages.MsgPack;
 public class Message
 {
     /// <summary>
-    ///     <see cref="OpCode" /> is a <see cref="Enums.OpCode" />.
+    ///     <see cref="OpCode" /> is a <see cref="WebSocketOpCode" />.
     /// </summary>
     [Key("op")]
-    public OpCode OpCode { get; init; }
+    public WebSocketOpCode OpCode { get; init; }
 }

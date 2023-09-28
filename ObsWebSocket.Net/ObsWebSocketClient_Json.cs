@@ -1,94 +1,50 @@
-﻿using System.Buffers;
-using System.Net.WebSockets;
+﻿using System.Net.WebSockets;
 using System.Text.Json;
-using ObsWebSocket.Net.Enums;
 using ObsWebSocket.Net.Messages;
 using ObsWebSocket.Net.Messages.Json;
+using ObsWebSocket.Net.Protocol.Enums;
 
 namespace ObsWebSocket.Net;
 
 public sealed partial class ObsWebSocketClient
 {
-    private async void Connect_Json(EventSubscriptions eventSubscriptions)
+    private void Json_Handler(in ReadOnlyMemory<byte> buffer, in ValueWebSocketReceiveResult result)
     {
-        if (_client is { State: WebSocketState.Open or WebSocketState.CloseReceived })
+        var message = JsonSerializer.Deserialize<Message>(buffer.Span[..result.Count]);
+
+        switch (message?.OpCode)
         {
-            await _client.CloseAsync(WebSocketCloseStatus.Empty, null, default);
-            _client.Abort();
+            case WebSocketOpCode.Hello:
+                OnConnected?.Invoke();
 
-            _client = null;
-            GC.Collect();
-        }
+                var hello = message.Data.Deserialize<Hello>();
+                Identify(hello?.Authentication, _eventSubscriptions);
+                break;
+            case WebSocketOpCode.Identified:
+                OnIdentified?.Invoke();
+                break;
+            case WebSocketOpCode.Event:
+                var evt = message.Data.Deserialize<Event>();
+                HandleEvents(evt);
+                break;
+            case WebSocketOpCode.RequestResponse:
+                var response = message.Data.Deserialize<RequestResponse>();
+                var data = DeserializeRequestResponse(response);
 
-        try
-        {
-            _client = new ClientWebSocket();
-            _client.Options.AddSubProtocol("obswebsocket.json");
+                if (TryRemoveInvocation(response?.RequestId, out InvocationRequest? irq))
+                    DispatchInvocationCompletion(data, irq);
+                break;
+            case WebSocketOpCode.RequestBatchResponse:
+                var batchResponse = message.Data.Deserialize<RequestBatchResponse>();
+                var results = new List<object?>();
 
-            await _client.ConnectAsync(_options.Host, default);
+                if (batchResponse != null)
+                    results = batchResponse.Results.Select(re => DeserializeRequestResponse(re)).ToList();
 
-            using var owner = MemoryPool<byte>.Shared.Rent();
-
-            while (_client.State == WebSocketState.Open)
-            {
-                var buffer = owner.Memory;
-
-                var result = await _client.ReceiveAsync(buffer, default);
-
-                if (result.MessageType == WebSocketMessageType.Close) break;
-
-                var message = JsonSerializer.Deserialize<Message>(buffer.Span[..result.Count]);
-
-                switch (message?.OpCode)
-                {
-                    case OpCode.Hello:
-                        OnConnected?.Invoke();
-
-                        var hello = message.Data.Deserialize<Hello>();
-                        Identify(hello?.Authentication, eventSubscriptions);
-                        break;
-                    case OpCode.Identified:
-                        OnIdentified?.Invoke();
-                        break;
-                    case OpCode.Event:
-                        var evt = message.Data.Deserialize<Event>();
-                        HandleEvents(evt);
-                        break;
-                    case OpCode.RequestResponse:
-                        var response = message.Data.Deserialize<RequestResponse>();
-                        var data = DeserializeRequestResponse(response);
-                        if (TryRemoveInvocation(response?.RequestId, out InvocationRequest? irq))
-                            DispatchInvocationCompletion(data, irq);
-
-                        break;
-                    case OpCode.RequestBatchResponse:
-                        var batchResponse = message.Data.Deserialize<RequestBatchResponse>();
-                        var results = new List<object?>();
-                        if (batchResponse != null)
-                            results = batchResponse.Results.Select(re => DeserializeRequestResponse(re)).ToList();
-
-                        if (TryRemoveInvocation(batchResponse?.RequestId,
-                                out InvocationBatchRequest? ibrq))
-                            DispatchInvocationCompletion(results, ibrq);
-                        break;
-                }
-            }
-
-            OnClosed?.Invoke();
-            if (_options.AutoReconnect)
-            {
-                await _options.AutoReconnectWait();
-                Connect_Json(eventSubscriptions);
-            }
-        }
-        catch (WebSocketException)
-        {
-            OnClosed?.Invoke();
-            if (_options.AutoReconnect)
-            {
-                await _options.AutoReconnectWait();
-                Connect_Json(eventSubscriptions);
-            }
+                if (TryRemoveInvocation(batchResponse?.RequestId,
+                        out InvocationBatchRequest? ibrq))
+                    DispatchInvocationCompletion(results, ibrq);
+                break;
         }
     }
 }

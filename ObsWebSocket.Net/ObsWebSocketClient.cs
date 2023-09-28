@@ -1,16 +1,21 @@
-﻿using System.Net.WebSockets;
-using System.Text.Json;
-using MessagePack;
-using ObsWebSocket.Net.Enums;
+﻿using MessagePack;
 using ObsWebSocket.Net.Messages;
+using ObsWebSocket.Net.Protocol.Enums;
+using System.Buffers;
+using System.Net.WebSockets;
+using System.Text.Json;
 using JsonEvent = ObsWebSocket.Net.Messages.Json.Event;
-using MsgPackEvent = ObsWebSocket.Net.Messages.MsgPack.Event;
 using JsonRequestResponse = ObsWebSocket.Net.Messages.Json.RequestResponse;
+using MsgPackEvent = ObsWebSocket.Net.Messages.MsgPack.Event;
 using MsgPackRequestResponse = ObsWebSocket.Net.Messages.MsgPack.RequestResponse;
 
 namespace ObsWebSocket.Net;
 
 public delegate void ObsWebSocketConnectedHandler();
+
+public delegate void ObsWebSocketReconnectingHandler();
+
+public delegate void ObsWebSocketConnectionFailedHandler(Exception exception);
 
 public delegate void ObsWebSocketIdentifiedHandler();
 
@@ -26,19 +31,20 @@ public sealed partial class ObsWebSocketClient
 
     private ClientWebSocket? _client;
 
+    private EventSubscription _eventSubscriptions = EventSubscription.All;
+
     private ObsWebSocketClientOptions _options;
 
     private ulong _requestId = 1;
 
-    public ObsWebSocketClient()
+    public ObsWebSocketClient() : this(new ObsWebSocketClientOptions())
     {
     }
 
     public ObsWebSocketClient(in string address, in int port, in string? password = null, in bool useMsgPack = false,
-        in bool autoReconnect = true,
-        in int autoReconnectWaitSeconds = ObsWebSocketClientOptions.DefaultAutoReconnectWaitSeconds)
-    {
-        _options = new ObsWebSocketClientOptions
+        in bool autoReconnect = false,
+        in int autoReconnectWaitSeconds = ObsWebSocketClientOptions.DefaultAutoReconnectWaitSeconds) : this(
+        new ObsWebSocketClientOptions
         {
             Address = address,
             Port = port,
@@ -46,7 +52,8 @@ public sealed partial class ObsWebSocketClient
             UseMsgPack = useMsgPack,
             AutoReconnect = autoReconnect,
             AutoReconnectWaitSeconds = autoReconnectWaitSeconds
-        };
+        })
+    {
     }
 
     public ObsWebSocketClient(in ObsWebSocketClientOptions options)
@@ -62,32 +69,71 @@ public sealed partial class ObsWebSocketClient
     }
 
     public event ObsWebSocketConnectedHandler? OnConnected;
+    public event ObsWebSocketReconnectingHandler? OnReconnecting;
+    public event ObsWebSocketConnectionFailedHandler? OnConnectionFailed;
     public event ObsWebSocketIdentifiedHandler? OnIdentified;
     public event ObsWebSocketClosedHandler? OnClosed;
 
-    public void Connect(in EventSubscriptions eventSubscriptions = EventSubscriptions.All)
+    public async void Connect(EventSubscription eventSubscriptions = EventSubscription.All)
     {
-        if (_options.UseMsgPack)
-            Connect_MsgPack(eventSubscriptions);
-        else
-            Connect_Json(eventSubscriptions);
+        _eventSubscriptions = eventSubscriptions;
+
+        if (_client is { State: WebSocketState.Open or WebSocketState.CloseReceived }) Close();
+
+        try
+        {
+            _client = new ClientWebSocket();
+            _client.Options.AddSubProtocol(_options.UseMsgPack ? "obswebsocket.msgpack" : "obswebsocket.json");
+
+            await _client.ConnectAsync(_options.Host, default);
+
+            using var owner = MemoryPool<byte>.Shared.Rent();
+
+            while (_client.State == WebSocketState.Open)
+            {
+                var buffer = owner.Memory;
+
+                var result = await _client.ReceiveAsync(buffer, default);
+
+                if (result.MessageType == WebSocketMessageType.Close) break;
+
+                if (_options.UseMsgPack) MsgPack_Handler(buffer, result);
+                else Json_Handler(buffer, result);
+            }
+
+            OnClosed?.Invoke();
+            if (!_options.AutoReconnect) return;
+            OnReconnecting?.Invoke();
+            await _options.AutoReconnectWait();
+            Connect(eventSubscriptions);
+        }
+        catch (WebSocketException ex)
+        {
+            OnConnectionFailed?.Invoke(ex);
+            if (_options.AutoReconnect)
+            {
+                OnReconnecting?.Invoke();
+                await _options.AutoReconnectWait();
+                Connect(eventSubscriptions);
+            }
+        }
     }
 
-    public async void Close()
+    public void Close()
     {
         if (_client == null) return;
-        await _client.CloseAsync(WebSocketCloseStatus.Empty, null, default);
         _client.Abort();
-
+        _client.Dispose();
         _client = null;
+
         GC.Collect();
     }
 
-    public void Reidentify(in EventSubscriptions eventSubscriptions = EventSubscriptions.All)
+    public void Reidentify(in EventSubscription eventSubscriptions = EventSubscription.All)
     {
         var message = new Message<Reidentify>
         {
-            OpCode = OpCode.Reidentify,
+            OpCode = WebSocketOpCode.Reidentify,
             Data = new Reidentify
             {
                 EventSubscriptions = eventSubscriptions
@@ -111,7 +157,7 @@ public sealed partial class ObsWebSocketClient
 
         var message = new Message<Request>
         {
-            OpCode = OpCode.Request,
+            OpCode = WebSocketOpCode.Request,
             Data = new Request
             {
                 RequestId = irq.RequestId,
@@ -138,7 +184,7 @@ public sealed partial class ObsWebSocketClient
 
         var message = new Message<RequestBatch>
         {
-            OpCode = OpCode.RequestBatch,
+            OpCode = WebSocketOpCode.RequestBatch,
             Data = new RequestBatch
             {
                 ExecutionType = executionType,
@@ -212,7 +258,7 @@ public sealed partial class ObsWebSocketClient
     {
         var message = new Message<Request>
         {
-            OpCode = OpCode.Request,
+            OpCode = WebSocketOpCode.Request,
             Data = new Request
             {
                 RequestId = RequestId,
@@ -235,11 +281,11 @@ public sealed partial class ObsWebSocketClient
                 WebSocketMessageType.Text, WebSocketMessageFlags.EndOfMessage, default);
     }
 
-    private void Identify(HelloAuthentication? authentication, EventSubscriptions eventSubscriptions)
+    private void Identify(HelloAuthentication? authentication, EventSubscription eventSubscriptions)
     {
         var response = new Message<Identify>
         {
-            OpCode = OpCode.Identify,
+            OpCode = WebSocketOpCode.Identify,
             Data = new Identify
             {
                 RpcVersion = RpcVersion,

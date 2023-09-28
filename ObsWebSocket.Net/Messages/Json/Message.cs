@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using ObsWebSocket.Net.Enums;
+using ObsWebSocket.Net.Protocol.Enums;
 
 namespace ObsWebSocket.Net.Messages.Json;
 
@@ -10,10 +10,10 @@ namespace ObsWebSocket.Net.Messages.Json;
 public class Message
 {
     /// <summary>
-    ///     <see cref="OpCode" /> is a <see cref="Enums.OpCode" />.
+    ///     <see cref="OpCode" /> is a <see cref="WebSocketOpCode" />.
     /// </summary>
     [JsonPropertyName("op")]
-    public OpCode OpCode { get; init; }
+    public WebSocketOpCode OpCode { get; init; }
 
     /// <summary>
     ///     <see cref="Data" /> is an object of the data fields associated with the operation.

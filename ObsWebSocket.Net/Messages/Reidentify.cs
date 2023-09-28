@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using MessagePack;
-using ObsWebSocket.Net.Enums;
+using ObsWebSocket.Net.Protocol.Enums;
 
 namespace ObsWebSocket.Net.Messages;
 
@@ -18,5 +18,5 @@ public class Reidentify
 {
     [JsonPropertyName("eventSubscriptions")]
     [Key("eventSubscriptions")]
-    public EventSubscriptions EventSubscriptions { get; init; }
+    public EventSubscription EventSubscriptions { get; init; }
 }
