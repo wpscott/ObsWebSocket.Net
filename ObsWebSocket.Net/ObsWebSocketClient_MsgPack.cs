@@ -8,7 +8,7 @@ namespace ObsWebSocket.Net;
 
 public sealed partial class ObsWebSocketClient
 {
-    private void MsgPack_Handler(in ReadOnlyMemory<byte> buffer, in ValueWebSocketReceiveResult _)
+    private void MsgPack_Handler(in ReadOnlyMemory<byte> buffer, in WebSocketReceiveResult _)
     {
         var message = MessagePackSerializer.Deserialize<Message>(buffer);
 

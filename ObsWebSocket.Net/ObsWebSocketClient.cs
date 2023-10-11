@@ -3,6 +3,7 @@ using ObsWebSocket.Net.Messages;
 using ObsWebSocket.Net.Protocol.Enums;
 using System.Buffers;
 using System.Net.WebSockets;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using JsonEvent = ObsWebSocket.Net.Messages.Json.Event;
 using JsonRequestResponse = ObsWebSocket.Net.Messages.Json.RequestResponse;
@@ -92,8 +93,8 @@ public sealed partial class ObsWebSocketClient
             while (_client.State == WebSocketState.Open)
             {
                 var buffer = owner.Memory;
-
-                var result = await _client.ReceiveAsync(buffer, default);
+                MemoryMarshal.TryGetArray<byte>(buffer, out var segment);
+                var result = await _client.ReceiveAsync(segment, default);
 
                 if (result.MessageType == WebSocketMessageType.Close) break;
 
@@ -275,10 +276,10 @@ public sealed partial class ObsWebSocketClient
 
         if (_options.UseMsgPack)
             await _client.SendAsync(new ArraySegment<byte>(MessagePackSerializer.Serialize(message)),
-                WebSocketMessageType.Binary, WebSocketMessageFlags.EndOfMessage, default);
+                WebSocketMessageType.Binary, true, default);
         else
             await _client.SendAsync(new ArraySegment<byte>(JsonSerializer.SerializeToUtf8Bytes(message)),
-                WebSocketMessageType.Text, WebSocketMessageFlags.EndOfMessage, default);
+                WebSocketMessageType.Text, true, default);
     }
 
     private void Identify(HelloAuthentication? authentication, EventSubscription eventSubscriptions)

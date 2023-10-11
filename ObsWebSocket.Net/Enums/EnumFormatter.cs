@@ -12,7 +12,7 @@ public class EnumFormatter<T> : IMessagePackFormatter<T> where T : struct, Enum
 
     public T Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
     {
-        return Enum.Parse<T>(reader.ReadString() ?? string.Empty);
+        return Enum.TryParse<T>(reader.ReadString() ?? string.Empty, out var @enum) ? @enum : default;
     }
 }
 
@@ -27,6 +27,6 @@ public class NullableEnumFormatter<T> : IMessagePackFormatter<T?> where T : stru
     {
         var str = reader.ReadString();
         if (string.IsNullOrEmpty(str)) return null;
-        return Enum.Parse<T>(str);
+        return Enum.TryParse<T>(str, out var @enum) ? @enum : default;
     }
 }

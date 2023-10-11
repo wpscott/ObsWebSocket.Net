@@ -8,7 +8,7 @@ namespace ObsWebSocket.Net;
 
 public sealed partial class ObsWebSocketClient
 {
-    private void Json_Handler(in ReadOnlyMemory<byte> buffer, in ValueWebSocketReceiveResult result)
+    private void Json_Handler(in ReadOnlyMemory<byte> buffer, in WebSocketReceiveResult result)
     {
         var message = JsonSerializer.Deserialize<Message>(buffer.Span[..result.Count]);
 
