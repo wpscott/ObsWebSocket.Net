@@ -11,13 +11,19 @@ var client = args.Length switch
     _ => throw new ArgumentException("Invalid argument numbers")
 };
 
+client.OnIdentified += () => { Console.WriteLine("OBS connected"); };
+
 client.OnConnectionFailed += (e) =>
 {
-    Console.WriteLine(e);
+    Console.WriteLine(e.Message);
     ewh.Set();
 };
 
-client.OnClosed += () => { ewh.Set(); };
+client.OnClosed += () =>
+{
+    Console.WriteLine("OBS disconnected");
+    ewh.Set();
+};
 
 client.OnIdentified += async () =>
 {
